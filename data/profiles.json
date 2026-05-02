@@ -1,0 +1,34 @@
+[
+  {
+    "id": "adult_standard",
+    "name": "Standard Adult",
+    "target_kcal": 1500,
+    "pct_carbs": 0.50,
+    "pct_fats": 0.30,
+    "pct_protein": 0.20
+  },
+  {
+    "id": "child",
+    "name": "Child",
+    "target_kcal": 1000,
+    "pct_carbs": 0.55,
+    "pct_fats": 0.30,
+    "pct_protein": 0.15
+  },
+  {
+    "id": "athlete",
+    "name": "Athlete",
+    "target_kcal": 1800,
+    "pct_carbs": 0.45,
+    "pct_fats": 0.25,
+    "pct_protein": 0.30
+  },
+  {
+    "id": "keto_dieter",
+    "name": "Keto Dieter",
+    "target_kcal": 1600,
+    "pct_carbs": 0.10,
+    "pct_fats": 0.65,
+    "pct_protein": 0.25
+  }
+]

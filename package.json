@@ -1,0 +1,24 @@
+{
+  "name": "eco-bowl",
+  "version": "1.0.0",
+  "main": "index.js",
+  "scripts": {
+    "dev": "vite",
+    "build": "vite build",
+    "preview": "vite preview",
+    "test": "jest",
+    "test:watch": "jest --watch"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "description": "",
+  "devDependencies": {
+    "jest": "^30.3.0",
+    "vite": "^8.0.10"
+  },
+  "dependencies": {
+    "chart.js": "^4.5.1",
+    "hammerjs": "^2.0.8"
+  }
+}
