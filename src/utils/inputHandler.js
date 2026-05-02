@@ -6,12 +6,15 @@ export function setupCardGestures(cardElement, onSwipeLeft, onSwipeRight, onDrag
     hammer.get('pan').set({ direction: Hammer.DIRECTION_HORIZONTAL, threshold: 10 });
 
     hammer.on('panmove', (ev) => {
-        onDrag(ev.deltaX);
+        const deltaX = ev.deltaX;
+        cardElement.style.transform = `translateX(${deltaX}px)`;
+        onDrag(deltaX);
     });
 
     hammer.on('panend', (ev) => {
         const deltaX = ev.deltaX;
         const deltaY = ev.deltaY;
+        cardElement.style.transform = ''; // Reset transform
         if (Math.abs(deltaX) > 100 && Math.abs(deltaY) < 50) {
             if (deltaX > 0) {
                 onSwipeRight();

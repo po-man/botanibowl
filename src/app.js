@@ -69,12 +69,15 @@ function swipeLeft() {
 
     const cardDeck = document.querySelector('.card-deck');
     const card = cardDeck.querySelector('.card');
+    const transform = card.style.transform;
+    const match = transform.match(/translateX\(([^)]+)px\)/);
+    const startX = match ? parseFloat(match[1]) : 0;
     animateCardSwipe(card, 'left', () => {
         gameState.currentCard = getRandomIngredient();
         updateCardDeck(cardDeck, gameState);
         attachCardGestures(cardDeck);
         swipeLocked = false;
-    });
+    }, startX);
 }
 
 function swipeRight() {
@@ -87,11 +90,14 @@ function swipeRight() {
 
     const cardDeck = document.querySelector('.card-deck');
     const card = cardDeck.querySelector('.card');
+    const transform = card.style.transform;
+    const match = transform.match(/translateX\(([^)]+)px\)/);
+    const startX = match ? parseFloat(match[1]) : 0;
     animateCardSwipe(card, 'right', () => {
         updateCardDeck(cardDeck, gameState);
         attachCardGestures(cardDeck);
         swipeLocked = false;
-    });
+    }, startX);
 }
 
 function dragPreview(deltaX) {

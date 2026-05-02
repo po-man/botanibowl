@@ -1,6 +1,5 @@
 // renderer.js - Rendering and animation utilities
-export function animateCardSwipe(cardElement, direction, onComplete) {
-    const startX = 0;
+export function animateCardSwipe(cardElement, direction, onComplete, startX = 0) {
     const endX = direction === 'right' ? window.innerWidth : -window.innerWidth;
     const duration = 300; // ms
     const startTime = Date.now();
