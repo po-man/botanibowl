@@ -90,6 +90,19 @@ body {
 
 .bar.over .fill { background: #F44336; }
 
+.bar .ghost-fill {
+    position: absolute;
+    top: 0;
+    height: 100%;
+    opacity: 0.5;
+}
+
+.bar.carbs .ghost-fill { background: #FFD700; }
+.bar.protein .ghost-fill { background: #FF6347; }
+.bar.fats .ghost-fill { background: #0000FF; }
+.bar.water .ghost-fill { background: #00BFFF; }
+.bar.land .ghost-fill { background: #8B4513; }
+
 .sweet-spot {
     position: absolute;
     top: 0;

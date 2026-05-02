@@ -101,8 +101,20 @@ function swipeRight() {
 }
 
 function dragPreview(deltaX) {
-    // Ghost preview: temporarily update HUD
-    // For simplicity, not implemented yet
+    const hud = document.querySelector('.hud');
+    if (deltaX > 50) {
+        const card = gameState.currentCard;
+        const ghost = {
+            carbs_g: card.carbs_g,
+            protein_g: card.protein_g,
+            fats_g: card.fats_g,
+            water_l: card.water_l,
+            land_m2: card.land_m2
+        };
+        updateHUD(hud, gameState, ghost);
+    } else {
+        updateHUD(hud, gameState);
+    }
 }
 function serveMeal() {
     showScreen('RESULTS');
