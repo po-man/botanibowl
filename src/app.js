@@ -66,6 +66,9 @@ function attachCardGestures(cardDeck) {
 function swipeLeft() {
     if (swipeLocked) return;
     swipeLocked = true;
+    if (!gameState.tutorialCompleted) {
+        gameState.completeTutorial();
+    }
 
     const cardDeck = document.querySelector('.card-deck');
     const card = cardDeck.querySelector('.card');
@@ -83,6 +86,9 @@ function swipeLeft() {
 function swipeRight() {
     if (swipeLocked) return;
     swipeLocked = true;
+    if (!gameState.tutorialCompleted) {
+        gameState.completeTutorial();
+    }
 
     const added = gameState.addIngredient(gameState.currentCard);
     if (!added) {

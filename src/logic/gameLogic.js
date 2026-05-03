@@ -17,6 +17,7 @@ export class GameState {
         };
         this.bowl = []; // array of added ingredients
         this.currentCard = null;
+        this.tutorialCompleted = false;
     }
 
     resetRound() {
@@ -49,6 +50,10 @@ export class GameState {
         this.current.land_m2 += ingredient.land_m2;
         this.currentCard = getRandomIngredient();
         return true;
+    }
+
+    completeTutorial() {
+        this.tutorialCompleted = true;
     }
 
     isBowlFull() {
