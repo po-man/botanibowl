@@ -41,27 +41,42 @@ export function updateHUD(container, gameState, ghost = null) {
         <div class="diner-tag">Target: ${profile.name} - ${targets.target_kcal} kcal</div>
         <div class="calorie-counter">Current: ${Math.round(current.kcal)} / ${targets.target_kcal} kcal</div>
         <div class="macro-bars">
-            <div class="bar carbs ${current.carbs_g > targets.carbs_g ? 'over' : ''}">
-                <div class="fill" style="width: ${carbsCurrentWidth}%"></div>
-                ${ghostCarbs}
+            <div class="bar-container">
+                <div class="bar carbs ${current.carbs_g > targets.carbs_g ? 'over' : ''}">
+                    <div class="fill" style="width: ${carbsCurrentWidth}%"></div>
+                    ${ghostCarbs}
+                </div>
+                <div class="bar-caption">CARBS</div>
             </div>
-            <div class="bar protein ${current.protein_g > targets.protein_g ? 'over' : ''}">
-                <div class="fill" style="width: ${proteinCurrentWidth}%"></div>
-                ${ghostProtein}
+            <div class="bar-container">
+                <div class="bar protein ${current.protein_g > targets.protein_g ? 'over' : ''}">
+                    <div class="fill" style="width: ${proteinCurrentWidth}%"></div>
+                    ${ghostProtein}
+                </div>
+                <div class="bar-caption">PROTEIN</div>
             </div>
-            <div class="bar fats">
-                <div class="fill" style="width: ${fatsCurrentWidth}%"></div>
-                ${ghostFats}
+            <div class="bar-container">
+                <div class="bar fats">
+                    <div class="fill" style="width: ${fatsCurrentWidth}%"></div>
+                    ${ghostFats}
+                </div>
+                <div class="bar-caption">FATS</div>
             </div>
         </div>
         <div class="eco-bars">
-            <div class="bar water ${current.water_l > targets.water_budget_l ? 'over' : ''}">
-                <div class="fill" style="width: ${waterCurrentWidth}%; right: 0;"></div>
-                ${ghostWater}
+            <div class="bar-container">
+                <div class="bar water ${current.water_l > targets.water_budget_l ? 'over' : ''}">
+                    <div class="fill" style="width: ${waterCurrentWidth}%; right: 0;"></div>
+                    ${ghostWater}
+                </div>
+                <div class="bar-caption">WATER RESOURCE</div>
             </div>
-            <div class="bar land ${current.land_m2 > targets.land_budget_m2 ? 'over' : ''}">
-                <div class="fill" style="width: ${landCurrentWidth}%; right: 0;"></div>
-                ${ghostLand}
+            <div class="bar-container">
+                <div class="bar land ${current.land_m2 > targets.land_budget_m2 ? 'over' : ''}">
+                    <div class="fill" style="width: ${landCurrentWidth}%; right: 0;"></div>
+                    ${ghostLand}
+                </div>
+                <div class="bar-caption">LAND RESOURCE</div>
             </div>
         </div>
     `;
