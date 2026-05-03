@@ -36,6 +36,9 @@ export class GameState {
     }
 
     addIngredient(ingredient) {
+        if (this.bowl.length >= 12) {
+            return false;
+        }
         this.bowl.push(ingredient);
         this.current.kcal += ingredient.calories;
         this.current.carbs_g += ingredient.carbs_g;
@@ -45,6 +48,11 @@ export class GameState {
         this.current.water_l += ingredient.water_l;
         this.current.land_m2 += ingredient.land_m2;
         this.currentCard = getRandomIngredient();
+        return true;
+    }
+
+    isBowlFull() {
+        return this.bowl.length >= 12;
     }
 
     isRoundComplete() {

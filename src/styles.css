@@ -158,12 +158,17 @@ body {
     display: flex;
     justify-content: space-between;
     align-items: center;
+    min-height: 120px;
+    max-height: 120px;
 }
 
 .ingredients {
-    display: flex;
+    display: grid;
+    grid-template-columns: repeat(6, auto);
     gap: 0.5rem;
-    flex-wrap: wrap;
+    align-content: start;
+    min-height: 72px;
+    width: 100%;
 }
 
 .ingredient {
@@ -179,6 +184,12 @@ body {
     cursor: pointer;
 }
 
+.bowl button.disabled,
+.bowl button:disabled {
+    background: #ccc;
+    color: #666;
+    cursor: not-allowed;
+}
 /* Results Screen */
 .results-screen {
     flex: 1;

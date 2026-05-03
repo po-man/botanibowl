@@ -8,12 +8,14 @@ export function createBowl(gameState, onServeMeal) {
 
 export function updateBowl(container, gameState, onServeMeal) {
     const bowlHTML = gameState.bowl.map(ing => `<span class="ingredient">${ing.emoji}</span>`).join('');
-    const showButton = gameState.isRoundComplete();
+    const hasIngredients = gameState.bowl.length > 0;
+    const isFull = gameState.bowl.length >= 12;
     container.innerHTML = `
         <div class="ingredients">${bowlHTML}</div>
-        ${showButton ? '<button id="serve-btn">Serve Meal</button>' : ''}
+        <button id="serve-btn" ${hasIngredients ? '' : 'disabled class="disabled"'}>${isFull ? 'Serve Meal' : 'Serve Meal'}</button>
     `;
-    if (showButton) {
-        container.querySelector('#serve-btn').addEventListener('click', onServeMeal);
+    const serveBtn = container.querySelector('#serve-btn');
+    if (serveBtn && hasIngredients) {
+        serveBtn.addEventListener('click', onServeMeal);
     }
 }

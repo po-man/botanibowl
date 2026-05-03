@@ -84,7 +84,12 @@ function swipeRight() {
     if (swipeLocked) return;
     swipeLocked = true;
 
-    gameState.addIngredient(gameState.currentCard);
+    const added = gameState.addIngredient(gameState.currentCard);
+    if (!added) {
+        swipeLocked = false;
+        return;
+    }
+
     updateHUD(document.querySelector('.hud'), gameState);
     updateBowl(document.querySelector('.bowl'), gameState, () => serveMeal());
 
