@@ -39,24 +39,23 @@ export function updateHUD(container, gameState, ghost = null) {
 
     container.innerHTML = `
         <div class="diner-tag">Target: ${profile.name} - ${targets.target_kcal} kcal</div>
-        <div class="calorie-counter">Current: ${Math.round(current.kcal)} / ${targets.target_kcal} kcal</div>
         <div class="macro-bars">
-            <div class="bar-container">
+            <div class="bar-container" style="flex-grow: ${profile.pct_carbs}">
                 <div class="bar carbs ${current.carbs_g > targets.carbs_g ? 'over' : ''}">
                     <div class="fill" style="width: ${carbsCurrentWidth}%"></div>
                     ${ghostCarbs}
                 </div>
                 <div class="bar-caption">CARBS</div>
             </div>
-            <div class="bar-container">
+            <div class="bar-container" style="flex-grow: ${profile.pct_protein}">
                 <div class="bar protein ${current.protein_g > targets.protein_g ? 'over' : ''}">
                     <div class="fill" style="width: ${proteinCurrentWidth}%"></div>
                     ${ghostProtein}
                 </div>
                 <div class="bar-caption">PROTEIN</div>
             </div>
-            <div class="bar-container">
-                <div class="bar fats">
+            <div class="bar-container" style="flex-grow: ${profile.pct_fats}">
+                <div class="bar fats ${current.fats_g > targets.fats_g ? 'over' : ''}">
                     <div class="fill" style="width: ${fatsCurrentWidth}%"></div>
                     ${ghostFats}
                 </div>

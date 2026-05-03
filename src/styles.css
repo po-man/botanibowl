@@ -56,11 +56,6 @@ body {
     margin-bottom: 0.5rem;
 }
 
-.calorie-counter {
-    font-size: 1.2rem;
-    margin-bottom: 1rem;
-}
-
 .macro-bars, .eco-bars {
     display: flex;
     gap: 0.5rem;
@@ -98,7 +93,16 @@ body {
 .bar.land { background: #8B4513; }
 .bar.land .fill { background: #eee; }
 
-.bar.over .fill { background: #F44336; }
+/* Over-limit animations */
+.bar.carbs.over .fill { animation: pulse-carbs 1.5s infinite; }
+.bar.protein.over .fill { animation: pulse-protein 1.5s infinite; }
+.bar.fats.over .fill { animation: pulse-fats 1.5s infinite; }
+
+/* For eco-bars, the whole bar pulses red since the fill direction is inverted */
+.bar.water.over .fill,
+.bar.land.over .fill {
+    animation: pulse-red 1.5s infinite;
+}
 
 .bar .ghost-fill {
     position: absolute;
@@ -129,6 +133,30 @@ body {
     text-transform: uppercase;
     margin-top: 0.25rem;
     text-align: left;
+}
+
+@keyframes pulse-red {
+    0% { background-color: #F44336; }
+    50% { background-color: #eee; }
+    100% { background-color: #F44336; }
+}
+
+@keyframes pulse-carbs {
+    0% { background-color: #FFD700; }
+    50% { background-color: #eee; }
+    100% { background-color: #FFD700; }
+}
+
+@keyframes pulse-protein {
+    0% { background-color: #FF6347; }
+    50% { background-color: #eee; }
+    100% { background-color: #FF6347; }
+}
+
+@keyframes pulse-fats {
+    0% { background-color: #0000FF; }
+    50% { background-color: #eee; }
+    100% { background-color: #0000FF; }
 }
 
 .card-deck {
