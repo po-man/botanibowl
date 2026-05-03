@@ -33,19 +33,19 @@ export function updateHUD(container, gameState, ghost = null) {
         ghostCarbs = `<div class="ghost-fill" style="left: ${carbsCurrentWidth}%; width: ${carbsGhostWidth}%"></div>`;
         ghostProtein = `<div class="ghost-fill" style="left: ${proteinCurrentWidth}%; width: ${proteinGhostWidth}%"></div>`;
         ghostFats = `<div class="ghost-fill" style="left: ${fatsCurrentWidth}%; width: ${fatsGhostWidth}%"></div>`;
-        ghostWater = `<div class="ghost-fill" style="left: ${waterCurrentWidth}%; width: ${waterGhostWidth}%"></div>`;
-        ghostLand = `<div class="ghost-fill" style="left: ${landCurrentWidth}%; width: ${landGhostWidth}%"></div>`;
+        ghostWater = `<div class="ghost-fill" style="right: ${waterCurrentWidth}%; width: ${waterGhostWidth}%"></div>`;
+        ghostLand = `<div class="ghost-fill" style="right: ${landCurrentWidth}%; width: ${landGhostWidth}%"></div>`;
     }
 
     container.innerHTML = `
         <div class="diner-tag">Target: ${profile.name} - ${targets.target_kcal} kcal</div>
         <div class="calorie-counter">Current: ${Math.round(current.kcal)} / ${targets.target_kcal} kcal</div>
         <div class="macro-bars">
-            <div class="bar carbs">
+            <div class="bar carbs ${current.carbs_g > targets.carbs_g ? 'over' : ''}">
                 <div class="fill" style="width: ${carbsCurrentWidth}%"></div>
                 ${ghostCarbs}
             </div>
-            <div class="bar protein">
+            <div class="bar protein ${current.protein_g > targets.protein_g ? 'over' : ''}">
                 <div class="fill" style="width: ${proteinCurrentWidth}%"></div>
                 ${ghostProtein}
             </div>
@@ -56,11 +56,11 @@ export function updateHUD(container, gameState, ghost = null) {
         </div>
         <div class="eco-bars">
             <div class="bar water ${current.water_l > targets.water_budget_l ? 'over' : ''}">
-                <div class="fill" style="width: ${waterCurrentWidth}%"></div>
+                <div class="fill" style="width: ${waterCurrentWidth}%; right: 0;"></div>
                 ${ghostWater}
             </div>
             <div class="bar land ${current.land_m2 > targets.land_budget_m2 ? 'over' : ''}">
-                <div class="fill" style="width: ${landCurrentWidth}%"></div>
+                <div class="fill" style="width: ${landCurrentWidth}%; right: 0;"></div>
                 ${ghostLand}
             </div>
         </div>

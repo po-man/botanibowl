@@ -77,6 +77,7 @@ body {
 }
 
 .bar .fill {
+    position: absolute; /* Added for right: 0 to work */
     height: 100%;
     background: #4CAF50;
     transition: width 0.3s;
@@ -86,7 +87,12 @@ body {
 .bar.protein .fill { background: #FF6347; }
 .bar.fats .fill { background: #0000FF; }
 .bar.water .fill { background: #00BFFF; }
+.bar.water { background: #00BFFF; }
+.bar.water .fill { background: #eee; }
+
 .bar.land .fill { background: #8B4513; }
+.bar.land { background: #8B4513; }
+.bar.land .fill { background: #eee; }
 
 .bar.over .fill { background: #F44336; }
 
@@ -100,8 +106,9 @@ body {
 .bar.carbs .ghost-fill { background: #FFD700; }
 .bar.protein .ghost-fill { background: #FF6347; }
 .bar.fats .ghost-fill { background: #0000FF; }
-.bar.water .ghost-fill { background: #00BFFF; }
-.bar.land .ghost-fill { background: #8B4513; }
+
+.bar.water .ghost-fill { background: #ddd; }
+.bar.land .ghost-fill { background: #ddd; }
 
 .sweet-spot {
     position: absolute;
