@@ -63,7 +63,7 @@ function attachCardGestures(cardDeck) {
     setupCardGestures(card, swipeLeft, swipeRight, dragPreview);
 }
 
-function swipeLeft() {
+function swipeLeft(startX) {
     if (swipeLocked) return;
     swipeLocked = true;
     if (!gameState.tutorialCompleted) {
@@ -72,9 +72,6 @@ function swipeLeft() {
 
     const cardDeck = document.querySelector('.card-deck');
     const card = cardDeck.querySelector('.card');
-    const transform = card.style.transform;
-    const match = transform.match(/translateX\(([^)]+)px\)/);
-    const startX = match ? parseFloat(match[1]) : 0;
     animateCardSwipe(card, 'left', () => {
         gameState.currentCard = getRandomIngredient();
         updateCardDeck(cardDeck, gameState);
@@ -83,7 +80,7 @@ function swipeLeft() {
     }, startX);
 }
 
-function swipeRight() {
+function swipeRight(startX) {
     if (swipeLocked) return;
     swipeLocked = true;
     if (!gameState.tutorialCompleted) {
@@ -101,9 +98,6 @@ function swipeRight() {
 
     const cardDeck = document.querySelector('.card-deck');
     const card = cardDeck.querySelector('.card');
-    const transform = card.style.transform;
-    const match = transform.match(/translateX\(([^)]+)px\)/);
-    const startX = match ? parseFloat(match[1]) : 0;
     animateCardSwipe(card, 'right', () => {
         updateCardDeck(cardDeck, gameState);
         attachCardGestures(cardDeck);

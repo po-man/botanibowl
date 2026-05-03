@@ -17,9 +17,9 @@ export function setupCardGestures(cardElement, onSwipeLeft, onSwipeRight, onDrag
         cardElement.style.transform = ''; // Reset transform
         if (Math.abs(deltaX) > 50 && Math.abs(deltaY) < 50) {
             if (deltaX > 0) {
-                onSwipeRight();
+                onSwipeRight(deltaX);
             } else {
-                onSwipeLeft();
+                onSwipeLeft(deltaX);
             }
         } else {
             onDrag(0);
