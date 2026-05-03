@@ -17,6 +17,7 @@ export class GameState {
         };
         this.bowl = []; // array of added ingredients
         this.currentCard = null;
+        this.nextCard = null;
         this.tutorialCompleted = false;
     }
 
@@ -34,6 +35,7 @@ export class GameState {
         };
         this.bowl = [];
         this.currentCard = getRandomIngredient();
+        this.nextCard = getRandomIngredient();
     }
 
     addIngredient(ingredient) {
@@ -48,8 +50,12 @@ export class GameState {
         this.current.protein_g += ingredient.protein_g;
         this.current.water_l += ingredient.water_l;
         this.current.land_m2 += ingredient.land_m2;
-        this.currentCard = getRandomIngredient();
         return true;
+    }
+
+    advanceCard() {
+        this.currentCard = this.nextCard;
+        this.nextCard = getRandomIngredient();
     }
 
     completeTutorial() {

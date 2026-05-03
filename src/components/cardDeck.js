@@ -8,7 +8,8 @@ export function createCardDeck(gameState) {
 
 export function updateCardDeck(container, gameState) {
     const card = gameState.currentCard;
-    if (!card) return;
+    const nextCard = gameState.nextCard;
+    if (!card || !nextCard) return;
 
     const tutorialOverlay = !gameState.tutorialCompleted ? `
         <div class="tutorial-overlay">
@@ -24,10 +25,17 @@ export function updateCardDeck(container, gameState) {
     ` : '';
 
     container.innerHTML = `
-        <div class="card">
-            <div class="emoji">${card.emoji}</div>
-            <div class="name">${card.name}</div>
-            <div class="serving">100g</div>
+        <div class="card-stack">
+            <div class="card next-card">
+                <div class="emoji">${nextCard.emoji}</div>
+                <div class="name">${nextCard.name}</div>
+                <div class="serving">100g</div>
+            </div>
+            <div class="card current-card">
+                <div class="emoji">${card.emoji}</div>
+                <div class="name">${card.name}</div>
+                <div class="serving">100g</div>
+            </div>
         </div>
         ${tutorialOverlay}
     `;

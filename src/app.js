@@ -7,7 +7,7 @@ import { createCardDeck, updateCardDeck } from './components/cardDeck.js';
 import { createBowl, updateBowl } from './components/bowl.js';
 import { createResultsScreen } from './components/resultsScreen.js';
 import { setupCardGestures } from './utils/inputHandler.js';
-import { animateCardSwipe } from './utils/renderer.js';
+import { animateCardSwipe, animateNextCardToCenter } from './utils/renderer.js';
 
 let gameState;
 let currentScreen;
@@ -58,7 +58,7 @@ function setupGameplayScreen() {
 }
 
 function attachCardGestures(cardDeck) {
-    const card = cardDeck.querySelector('.card');
+    const card = cardDeck.querySelector('.current-card');
     if (!card) return;
     setupCardGestures(card, swipeLeft, swipeRight, dragPreview);
 }
@@ -71,12 +71,15 @@ function swipeLeft(startX) {
     }
 
     const cardDeck = document.querySelector('.card-deck');
-    const card = cardDeck.querySelector('.card');
+    const card = cardDeck.querySelector('.current-card');
     animateCardSwipe(card, 'left', () => {
-        gameState.currentCard = getRandomIngredient();
-        updateCardDeck(cardDeck, gameState);
-        attachCardGestures(cardDeck);
-        swipeLocked = false;
+        const nextCard = cardDeck.querySelector('.next-card');
+        animateNextCardToCenter(nextCard, () => {
+            gameState.advanceCard();
+            updateCardDeck(cardDeck, gameState); // Re-render with the new state
+            attachCardGestures(cardDeck);
+            swipeLocked = false;
+        });
     }, startX);
 }
 
@@ -97,11 +100,15 @@ function swipeRight(startX) {
     updateBowl(document.querySelector('.bowl'), gameState, () => serveMeal());
 
     const cardDeck = document.querySelector('.card-deck');
-    const card = cardDeck.querySelector('.card');
+    const card = cardDeck.querySelector('.current-card');
     animateCardSwipe(card, 'right', () => {
-        updateCardDeck(cardDeck, gameState);
-        attachCardGestures(cardDeck);
-        swipeLocked = false;
+        const nextCard = cardDeck.querySelector('.next-card');
+        animateNextCardToCenter(nextCard, () => {
+            gameState.advanceCard();
+            updateCardDeck(cardDeck, gameState); // Re-render with the new state
+            attachCardGestures(cardDeck);
+            swipeLocked = false;
+        });
     }, startX);
 }
 
