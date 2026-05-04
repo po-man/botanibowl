@@ -29,12 +29,12 @@ export function updateCardDeck(container, gameState) {
             <div class="card next-card">
                 <div class="emoji">${nextCard.emoji}</div>
                 <div class="name">${nextCard.name}</div>
-                <div class="serving">100g</div>
+                <div class="serving">${nextCard.serving_size_g}g</div>
             </div>
             <div class="card current-card">
                 <div class="emoji">${card.emoji}</div>
                 <div class="name">${card.name}</div>
-                <div class="serving">100g</div>
+                <div class="serving">${card.serving_size_g}g</div>
             </div>
         </div>
         ${tutorialOverlay}
