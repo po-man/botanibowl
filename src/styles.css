@@ -263,6 +263,20 @@ body {
     color: #666;
 }
 
+/* Radar Chart */
+.radar-chart-container {
+    width: 100%;
+    height: 200px; /* Adjusted to accommodate larger chart */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-bottom: 0.5rem;
+}
+
+.radar-chart {
+    width: 240px; /* Doubled from 90px */
+    height: 180px; /* Doubled from 90px */
+}
 /* Bowl */
 .bowl {
     padding: 1rem;

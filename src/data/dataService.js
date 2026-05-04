@@ -2,6 +2,14 @@
 let ingredients = [];
 let profiles = [];
 
+let maxIngredientValues = {
+    carbs_g: 0,
+    protein_g: 0,
+    fats_g: 0,
+    water_l: 0,
+    land_m2: 0
+};
+
 export function validateIngredient(ingredient) {
     const required = ['id', 'name', 'emoji', 'serving_size_g', 'calories', 'carbs_g', 'fats_g', 'sat_fats_g', 'protein_g', 'water_l', 'land_m2'];
     return required.every(key => ingredient.hasOwnProperty(key) && typeof ingredient[key] === 'number' || key === 'id' || key === 'name' || key === 'emoji');
@@ -17,6 +25,7 @@ export async function loadData() {
         const ingredientsResponse = await fetch('./data/ingredients.json');
         const rawIngredients = await ingredientsResponse.json();
         ingredients = rawIngredients.filter(validateIngredient);
+        calculateMaxIngredientValues(); // Calculate max values after loading ingredients
 
         const profilesResponse = await fetch('./data/profiles.json');
         const rawProfiles = await profilesResponse.json();
@@ -26,12 +35,26 @@ export async function loadData() {
     }
 }
 
+function calculateMaxIngredientValues() {
+    ingredients.forEach(ing => {
+        maxIngredientValues.carbs_g = Math.max(maxIngredientValues.carbs_g, ing.carbs_g);
+        maxIngredientValues.protein_g = Math.max(maxIngredientValues.protein_g, ing.protein_g);
+        maxIngredientValues.fats_g = Math.max(maxIngredientValues.fats_g, ing.fats_g);
+        maxIngredientValues.water_l = Math.max(maxIngredientValues.water_l, ing.water_l);
+        maxIngredientValues.land_m2 = Math.max(maxIngredientValues.land_m2, ing.land_m2);
+    });
+}
+
 export function getIngredients() {
     return ingredients;
 }
 
 export function getProfiles() {
     return profiles;
+}
+
+export function getMaxIngredientValues() {
+    return maxIngredientValues;
 }
 
 export function getRandomIngredient() {
