@@ -57,10 +57,16 @@ export function getMaxIngredientValues() {
     return maxIngredientValues;
 }
 
-export function getRandomIngredient() {
+export function getRandomIngredient(exclude = null) {
     if (ingredients.length === 0) return null;
-    const index = Math.floor(Math.random() * ingredients.length);
-    return ingredients[index];
+    if (ingredients.length === 1) return ingredients[0];
+
+    let randomIngredient;
+    do {
+        const index = Math.floor(Math.random() * ingredients.length);
+        randomIngredient = ingredients[index];
+    } while (exclude && randomIngredient.id === exclude.id);
+    return randomIngredient;
 }
 
 export function getRandomProfile() {

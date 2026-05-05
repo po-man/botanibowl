@@ -35,7 +35,7 @@ export class GameState {
         };
         this.bowl = [];
         this.currentCard = getRandomIngredient();
-        this.nextCard = getRandomIngredient();
+        this.nextCard = getRandomIngredient(this.currentCard);
     }
 
     addIngredient(ingredient) {
@@ -55,7 +55,7 @@ export class GameState {
 
     advanceCard() {
         this.currentCard = this.nextCard;
-        this.nextCard = getRandomIngredient();
+        this.nextCard = getRandomIngredient(this.currentCard);
     }
 
     completeTutorial() {
