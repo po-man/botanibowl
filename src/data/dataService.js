@@ -11,7 +11,7 @@ let maxIngredientValues = {
 };
 
 export function validateIngredient(ingredient) {
-    const required = ['id', 'name', 'emoji', 'serving_size_g', 'calories', 'carbs_g', 'fats_g', 'sat_fats_g', 'protein_g', 'water_l', 'land_m2'];
+    const required = ['id', 'name', 'emoji', 'serving_size_g', 'calories', 'carbs_g', 'fats_g', 'protein_g', 'water_l', 'land_m2'];
     return required.every(key => ingredient.hasOwnProperty(key) && typeof ingredient[key] === 'number' || key === 'id' || key === 'name' || key === 'emoji');
 }
 
