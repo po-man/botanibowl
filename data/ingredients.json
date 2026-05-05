@@ -286,6 +286,19 @@
         "id": "beans"
     },
     {
+        "category": "Vegetables",
+        "emoji": "⬜",
+        "name": "Tofu",
+        "serving_size_g": 100.0,
+        "carbs_g": 2.0,
+        "protein_g": 8.0,
+        "fats_g": 4.8,
+        "water_l": 14.86,
+        "land_m2": 0.35,
+        "calories": 83.2,
+        "id": "tofu"
+    },
+    {
         "category": "Prepared Foods",
         "emoji": "🥚",
         "name": "Egg",
