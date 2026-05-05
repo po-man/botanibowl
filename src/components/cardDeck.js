@@ -34,15 +34,23 @@ export function updateCardDeck(container, gameState) {
         <div class="card-stack">
             <div class="card next-card">
                 <div class="radar-chart-container">${nextCardRadar}</div>
-                <div class="emoji">${nextCard.emoji}</div>
-                <div class="name">${nextCard.name}</div>
-                <div class="serving">${nextCard.serving_size_g}g</div>
+                <div class="card-info">
+                    <div class="emoji">${nextCard.emoji}</div>
+                    <div class="name-serving-group">
+                        <div class="name">${nextCard.name}</div>
+                        <div class="serving">${nextCard.serving_size_g}g</div>
+                    </div>
+                </div>
             </div>
             <div class="card current-card">
                 <div class="radar-chart-container">${currentCardRadar}</div>
-                <div class="emoji">${card.emoji}</div>
-                <div class="name">${card.name}</div>
-                <div class="serving">${card.serving_size_g}g</div>
+                <div class="card-info">
+                    <div class="emoji">${card.emoji}</div>
+                    <div class="name-serving-group">
+                        <div class="name">${card.name}</div>
+                        <div class="serving">${card.serving_size_g}g</div>
+                    </div>
+                </div>
             </div>
         </div>
         ${tutorialOverlay}

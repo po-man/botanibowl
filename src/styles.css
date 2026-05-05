@@ -9,12 +9,12 @@ body {
     font-family: 'Roboto', sans-serif;
     background-color: #f5f5f5;
     color: #333;
-    height: 100vh;
+    height: 100%;
     overflow: hidden;
 }
 
 #app {
-    height: 100vh;
+    height: 100%;
     display: flex;
     flex-direction: column;
 }
@@ -49,17 +49,18 @@ body {
     padding: 1rem;
     background: #fff;
     border-bottom: 1px solid #ddd;
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
 }
 
 .diner-tag {
     font-weight: bold;
-    margin-bottom: 0.5rem;
 }
 
 .macro-bars, .eco-bars {
     display: flex;
     gap: 0.5rem;
-    margin-bottom: 0.5rem;
 }
 
 .bar-container {
@@ -170,8 +171,6 @@ body {
 .card-stack {
     position: relative;
     width: 80%;
-    max-width: 300px;
-    height: 400px;
 }
 
 .card {
@@ -183,10 +182,10 @@ body {
     box-shadow: 0 4px 8px rgba(0,0,0,0.1);
     display: flex;
     flex-direction: column;
-    justify-content: center;
+    justify-content: center; /* Vertically center content */
     align-items: center;
-    font-size: 2rem;
     transition: transform 0.3s ease, opacity 0.3s ease;
+    padding: 0.5rem;
 }
 
 .card.current-card {
@@ -248,25 +247,40 @@ body {
     50% { transform: translateY(-8px); }
 }
 
+.card-info {
+    display: flex;
+    align-items: center;
+    width: 100%;
+    padding: 0 1rem;
+    justify-content: center;
+    gap: 1rem;
+}
+
+.name-serving-group {
+    display: flex;
+    flex-direction: column;
+}
+
 .card .emoji {
-    font-size: 4rem;
-    margin-bottom: 1rem;
+    font-size: 6em;
+    margin-bottom: 0; /* Removed margin */
 }
 
 .card .name {
     font-weight: bold;
-    margin-bottom: 0.5rem;
+    font-size: 2em;
+    margin-bottom: 0.25rem; /* Reduced margin */
 }
 
 .card .serving {
-    font-size: 1rem;
+    font-size: 1.5em;
     color: #666;
 }
 
 /* Radar Chart */
 .radar-chart-container {
     width: 100%;
-    height: 200px; /* Adjusted to accommodate larger chart */
+    height: 60%; /* Use em for proportional height */
     display: flex;
     justify-content: center;
     align-items: center;
@@ -274,32 +288,32 @@ body {
 }
 
 .radar-chart {
-    width: 240px; /* Doubled from 90px */
-    height: 180px; /* Doubled from 90px */
+    width: 100%; /* Use em for proportional size */
+    height: 100%; /* Use em for proportional size */
 }
 /* Bowl */
 .bowl {
+    --emoji-size: 1.5rem;
     padding: 1rem;
     background: #fff;
     border-top: 1px solid #ddd;
     display: flex;
-    justify-content: space-between;
     align-items: center;
-    min-height: 120px;
-    max-height: 120px;
+    min-height: 7.5rem;
+    max-height: 7.5rem;
 }
 
 .ingredients {
     display: grid;
     grid-template-columns: repeat(6, auto);
-    gap: 0.5rem;
+    gap: var(--grid-gap);
     align-content: start;
-    min-height: 72px;
+    height: calc(var(--emoji-size) * 3 + var(--grid-gap) * 2);
     width: 100%;
 }
 
 .ingredient {
-    font-size: 2rem;
+    font-size: var(--emoji-size);
 }
 
 .bowl button {

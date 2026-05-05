@@ -7,11 +7,11 @@ export function createRadarChartSVG(ingredient, maxValues) {
 
     // Define the attributes and their corresponding colors and labels
     const attributes = [
-        { key: 'protein_g', label: 'PROTEIN', color: '#FF6347' },  // Red
-        { key: 'fats_g', label: 'FATS', color: '#0000FF' },      // Blue
-        { key: 'land_m2', label: 'LAND USE', color: '#8B4513' },      // Brown
-        { key: 'water_l', label: 'WATER USE', color: '#00BFFF' },    // Light Blue
-        { key: 'carbs_g', label: 'CARBS', color: '#FFD700' }    // Yellow
+        { key: 'protein_g', label: 'P', color: '#FF6347' },  // Red
+        { key: 'fats_g', label: 'F', color: '#0000FF' },      // Blue
+        { key: 'land_m2', label: 'L', color: '#8B4513' },      // Brown
+        { key: 'water_l', label: 'W', color: '#00BFFF' },    // Light Blue
+        { key: 'carbs_g', label: 'C', color: '#FFD700' }    // Yellow
     ];
     const numAxes = attributes.length;
 
@@ -42,7 +42,7 @@ export function createRadarChartSVG(ingredient, maxValues) {
             const y = center + currentRadius * Math.sin(angle);
             return `${x},${y}`;
         }).join(' ');
-        return `<polygon points="${gridPoints}" fill="none" stroke="lightgrey" stroke-width="0.5"/>`;
+        return `<polygon points="${gridPoints}" fill="none" stroke="lightgrey" stroke-width="1"/>`;
     }).join('');
 
     // Generate axis lines
@@ -56,7 +56,7 @@ export function createRadarChartSVG(ingredient, maxValues) {
 
         const x = center + radius * Math.cos(angle);
         const y = center + radius * Math.sin(angle);
-        return `<line x1="${center}" y1="${center}" x2="${x}" y2="${y}" stroke="${attr.color}" stroke-width="0.5"/>`;
+        return `<line x1="${center}" y1="${center}" x2="${x}" y2="${y}" stroke="${attr.color}" stroke-width="1"/>`;
     }).join('');
 
     // Generate labels for each axis
@@ -91,7 +91,7 @@ export function createRadarChartSVG(ingredient, maxValues) {
             dx = 10; // Shift right for better spacing
         }
 
-        return `<text x="${labelX+dx}" y="${labelY}" text-anchor="${textAnchor}" dominant-baseline="central" fill="#333" font-size="0.4em">${attr.label}</text>`;
+        return `<text x="${labelX+dx}" y="${labelY}" text-anchor="${textAnchor}" dominant-baseline="central" fill="#333" font-size="1em">${attr.label}</text>`;
     }).join('');
 
     return `
@@ -99,7 +99,7 @@ export function createRadarChartSVG(ingredient, maxValues) {
             ${gridPolygons}
             ${axisLines}
             ${axisLabels}
-            <polygon points="${points}" fill="rgba(76, 175, 80, 0.5)" stroke="#4CAF50" stroke-width="1"/>
+            <polygon points="${points}" fill="rgba(76, 175, 80, 0.5)" stroke="#4CAF50" stroke-width="2"/>
         </svg>
     `;
 }

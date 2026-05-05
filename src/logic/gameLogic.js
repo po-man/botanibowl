@@ -39,7 +39,7 @@ export class GameState {
     }
 
     addIngredient(ingredient) {
-        if (this.bowl.length >= 12) {
+        if (this.isBowlFull()) {
             return false;
         }
         this.bowl.push(ingredient);
@@ -63,7 +63,7 @@ export class GameState {
     }
 
     isBowlFull() {
-        return this.bowl.length >= 12;
+        return this.bowl.length >= 18;
     }
 
     isRoundComplete() {

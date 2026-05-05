@@ -55,6 +55,7 @@ function setupGameplayScreen() {
     app.appendChild(bowl);
 
     attachCardGestures(cardDeck);
+    resizeCard();
 }
 
 function attachCardGestures(cardDeck) {
@@ -77,6 +78,7 @@ function swipeLeft(startX) {
         animateNextCardToCenter(nextCard, () => {
             gameState.advanceCard();
             updateCardDeck(cardDeck, gameState); // Re-render with the new state
+            resizeCard(); // Re-apply dynamic sizing to the new card-stack element
             attachCardGestures(cardDeck);
             swipeLocked = false;
         });
@@ -106,6 +108,7 @@ function swipeRight(startX) {
         animateNextCardToCenter(nextCard, () => {
             gameState.advanceCard();
             updateCardDeck(cardDeck, gameState); // Re-render with the new state
+            resizeCard(); // Re-apply dynamic sizing to the new card-stack element
             attachCardGestures(cardDeck);
             swipeLocked = false;
         });
@@ -128,6 +131,30 @@ function dragPreview(deltaX) {
         updateHUD(hud, gameState);
     }
 }
+
+function resizeCard() {
+    const hud = document.querySelector('.hud');
+    const bowl = document.querySelector('.bowl');
+    const cardStack = document.querySelector('.card-stack');
+
+    if (!hud || !bowl || !cardStack) return;
+
+    const hudHeight = hud.offsetHeight;
+    const bowlHeight = bowl.offsetHeight;
+    const availableHeight = window.innerHeight - hudHeight - bowlHeight;
+
+    const cardHeight = availableHeight * 0.9;
+    const cardAspectRatio = 300 / 400; // From original CSS width/height
+    const cardWidth = cardHeight * cardAspectRatio;
+
+    cardStack.style.height = `${cardHeight}px`;
+    cardStack.style.width = `${Math.min(cardWidth, window.innerWidth * 0.8)}px`;
+
+    // Set a scalable base font size for the card's content.
+    // 40 is a "magic number" derived from the original fixed height (400px) and a base font size of 10px.
+    cardStack.style.fontSize = `${cardHeight / 40}px`;
+}
+
 function serveMeal() {
     showScreen('RESULTS');
 }
