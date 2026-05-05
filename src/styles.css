@@ -332,6 +332,16 @@ body {
     cursor: not-allowed;
 }
 /* Results Screen */
+.bowl button.shine {
+    animation: shine-animation 1.5s infinite ease-in-out;
+}
+
+@keyframes shine-animation {
+    0%, 100% { background-color: #FFFFFF; }
+    50% { background-color: #4CAF50; }
+}
+
+
 .results-screen {
     flex: 1;
     padding: 1rem;
