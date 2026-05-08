@@ -367,6 +367,13 @@ body {
     box-shadow: 0 10px 20px rgba(0,0,0,0.2);
 }
 
+.bowl-actions {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    margin-left: 0.5rem;
+}
+
 .bowl button,
 .results-card #next-btn {
     background: #4CAF50;
@@ -382,10 +389,8 @@ body {
     justify-content: center;
     align-items: center;
     max-width: 4rem;
-    min-width: 4rem;
-    height: 100%;
-    padding: 0.5rem 1rem;
-    margin-left: 0.5rem;
+    width: 4rem; /* Fixed width */
+    flex-grow: 1;
 }
 
 .bowl button.disabled,
@@ -402,16 +407,43 @@ body {
     margin-top: 1rem;
 }
 
-#serve-btn.trash-mode {
-    background: #F44336;
+.bowl-action-btn {
+    flex: 1;
+    width: 4rem;
+    border: none;
     color: white;
-    box-shadow: 0 0 0 0 rgba(244,67,54,0.5);
-    animation: trash-pulse 1.2s infinite;
+    cursor: pointer;
+    transition: background-color 0.2s, transform 0.2s;
 }
 
-#serve-btn.trash-hover {
+.bowl-action-btn.drop {
+    background: #F44336;
+    border-radius: 0.5rem 0.5rem 0 0;
+}
+
+.bowl-action-btn.double {
+    background: #9C27B0; /* Purple */
+    border-radius: 0 0 0.5rem 0.5rem;
+}
+
+.bowl-action-btn.double:disabled {
+    background: #ccc;
+}
+
+.bowl-action-btn.trash-hover {
     background: #D32F2F;
     transform: scale(1.04);
+}
+
+.bowl-action-btn.double.trash-hover {
+    background: #7B1FA2; /* Darker Purple */
+    transform: scale(1.04);
+}
+
+.bowl-action-btn:disabled.trash-hover {
+    background: #ccc; /* Keep disabled color */
+    transform: none; /* Prevent scaling */
+    cursor: not-allowed;
 }
 
 @keyframes trash-pulse {

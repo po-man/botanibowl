@@ -1,12 +1,12 @@
 // bowl.js - Bowl component
-export function createBowl(gameState, onServeMeal, onRemoveIngredient) {
+export function createBowl(gameState, onServeMeal, onRemoveIngredient, onAddIngredient) {
     const container = document.createElement('div');
     container.className = 'bowl';
-    updateBowl(container, gameState, onServeMeal, onRemoveIngredient);
+    updateBowl(container, gameState, onServeMeal, onRemoveIngredient, onAddIngredient);
     return container;
 }
 
-export function updateBowl(container, gameState, onServeMeal, onRemoveIngredient) {
+export function updateBowl(container, gameState, onServeMeal, onRemoveIngredient, onAddIngredient) {
     const bowlHTML = gameState.bowl.map((ing, index) => `<span class="ingredient" data-index="${index}">${ing.emoji}</span>`).join('');
     const hasIngredients = gameState.bowl.length > 0;
     const isFull = gameState.isBowlFull();
@@ -15,7 +15,9 @@ export function updateBowl(container, gameState, onServeMeal, onRemoveIngredient
 
     container.innerHTML = `
         <div class="ingredients">${bowlHTML}</div>
-        <button id="serve-btn" class="${buttonClasses}" ${hasIngredients ? '' : 'disabled'}>Serve Meal</button>
+        <div class="bowl-actions">
+            <button id="serve-btn" class="${buttonClasses}" ${hasIngredients ? '' : 'disabled'}>Serve Meal</button>
+        </div>
     `;
     const serveBtn = container.querySelector('#serve-btn');
     if (serveBtn && hasIngredients) {
@@ -31,12 +33,23 @@ export function updateBowl(container, gameState, onServeMeal, onRemoveIngredient
     let draggedElement = null;
     let dragOffsetX = 0;
     let dragOffsetY = 0;
-    const originalServeText = serveBtn ? serveBtn.textContent : 'Serve Meal';
+    const actionsContainer = container.querySelector('.bowl-actions');
+    const originalActionsHTML = actionsContainer.innerHTML;
 
-    const resetServeButton = () => {
-        if (!serveBtn) return;
-        serveBtn.classList.remove('trash-mode', 'trash-hover');
-        serveBtn.textContent = originalServeText;
+    const resetActionButtons = () => {
+        if (!actionsContainer) return;
+        actionsContainer.innerHTML = originalActionsHTML;
+        // Re-attach listener for serve button
+        const newServeBtn = actionsContainer.querySelector('#serve-btn');
+        if (newServeBtn && hasIngredients) {
+            newServeBtn.addEventListener('click', onServeMeal);
+        }
+    };
+
+    const getActionButtons = () => {
+        const dropBtn = document.getElementById('drop-btn');
+        const doubleBtn = document.getElementById('double-btn');
+        return { dropBtn, doubleBtn };
     };
 
     const cleanupDrag = () => {
@@ -50,15 +63,20 @@ export function updateBowl(container, gameState, onServeMeal, onRemoveIngredient
             draggedElement = null;
         }
         activeIndex = null;
-        resetServeButton();
+        resetActionButtons();
     };
 
     const updateHoverState = (touchX, touchY) => {
-        if (!serveBtn) return false;
+        const { dropBtn, doubleBtn } = getActionButtons();
+        if (!dropBtn || !doubleBtn) return { overDrop: false, overDouble: false };
+
         const elementUnder = document.elementFromPoint(touchX, touchY);
-        const isOverServe = elementUnder === serveBtn || serveBtn.contains(elementUnder);
-        serveBtn.classList.toggle('trash-hover', isOverServe);
-        return isOverServe;
+        const isOverDrop = elementUnder === dropBtn || dropBtn.contains(elementUnder);
+        const isOverDouble = elementUnder === doubleBtn || doubleBtn.contains(elementUnder);
+
+        dropBtn.classList.toggle('trash-hover', isOverDrop);
+        doubleBtn.classList.toggle('trash-hover', isOverDouble);
+        return { overDrop: isOverDrop, overDouble: isOverDouble };
     };
 
     if (ingredientsContainer) {
@@ -66,7 +84,7 @@ export function updateBowl(container, gameState, onServeMeal, onRemoveIngredient
             const touch = event.touches[0];
             if (!touch) return;
             const target = event.target.closest('.ingredient');
-            if (!target || !serveBtn) return;
+            if (!target || !actionsContainer) return;
 
             event.preventDefault();
             activeIndex = Number(target.dataset.index);
@@ -84,9 +102,12 @@ export function updateBowl(container, gameState, onServeMeal, onRemoveIngredient
             draggedElement.style.top = `${touch.clientY - dragOffsetY}px`;
             draggedElement.style.width = `${rect.width}px`;
             draggedElement.style.height = `${rect.height}px`;
-            if (serveBtn) {
-                serveBtn.classList.add('trash-mode');
-                serveBtn.textContent = 'Drop';
+
+            if (actionsContainer) {
+                actionsContainer.innerHTML = `
+                    <button id="drop-btn" class="bowl-action-btn drop">Drop</button>
+                    <button id="double-btn" class="bowl-action-btn double" ${isFull ? 'disabled' : ''}>Double</button>
+                `;
             }
         }, { passive: false });
 
@@ -108,12 +129,21 @@ export function updateBowl(container, gameState, onServeMeal, onRemoveIngredient
 
             const touch = event.changedTouches ? event.changedTouches[0] : null;
             let removed = false;
-            if (touch && updateHoverState(touch.clientX, touch.clientY)) {
-                removed = onRemoveIngredient(activeIndex);
+            let added = false;
+
+            if (touch) {
+                const { overDrop, overDouble } = updateHoverState(touch.clientX, touch.clientY);
+                if (overDrop) {
+                    removed = onRemoveIngredient(activeIndex);
+                } else if (overDouble && !isFull && onAddIngredient) {
+                    const ingredientToAdd = gameState.bowl[activeIndex];
+                    added = onAddIngredient(ingredientToAdd);
+                }
             }
 
             cleanupDrag();
-            if (removed) {
+            // Return if an action was taken to prevent other logic from firing
+            if (removed || added) {
                 return;
             }
         };

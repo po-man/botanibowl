@@ -48,7 +48,7 @@ function setupGameplayScreen() {
     const app = document.getElementById('app');
     const hud = createHUD(gameState, true);
     const cardDeck = createCardDeck(gameState);
-    const bowl = createBowl(gameState, () => serveMeal(), handleIngredientRemoval);
+    const bowl = createBowl(gameState, () => serveMeal(), handleIngredientRemoval, handleIngredientAddition);
 
     app.appendChild(hud);
     app.appendChild(cardDeck);
@@ -57,6 +57,21 @@ function setupGameplayScreen() {
     attachCardGestures(cardDeck);
     resizeCard();
 }
+
+function handleIngredientAddition(ingredient) {
+    const added = gameState.addIngredient(ingredient);
+    if (!added) {
+        return false;
+    }
+
+    const hud = document.querySelector('.hud');
+    const bowl = document.querySelector('.bowl');
+    updateHUD(hud, gameState);
+    // Re-render bowl to show the new ingredient
+    updateBowl(bowl, gameState, () => serveMeal(), handleIngredientRemoval, handleIngredientAddition);
+    return true;
+}
+
 
 function handleIngredientRemoval(index) {
     const removed = gameState.removeIngredient(index);
@@ -70,7 +85,7 @@ function handleIngredientRemoval(index) {
         updateHUD(hud, gameState);
     }
     if (bowl) {
-        updateBowl(bowl, gameState, () => serveMeal(), handleIngredientRemoval);
+        updateBowl(bowl, gameState, () => serveMeal(), handleIngredientRemoval, handleIngredientAddition);
     }
 }
 
@@ -115,7 +130,7 @@ function swipeRight(startX) {
     }
 
     updateHUD(document.querySelector('.hud'), gameState);
-    updateBowl(document.querySelector('.bowl'), gameState, () => serveMeal(), handleIngredientRemoval);
+    updateBowl(document.querySelector('.bowl'), gameState, () => serveMeal(), handleIngredientRemoval, handleIngredientAddition);
 
     const cardDeck = document.querySelector('.card-deck');
     const card = cardDeck.querySelector('.current-card');
