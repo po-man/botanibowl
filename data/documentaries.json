@@ -1,0 +1,34 @@
+[
+  {
+    "id": "cowspiracy",
+    "title": "Cowspiracy",
+    "hook": "Reveals the shocking truth about the environmental impact of animal agriculture.",
+    "image_url": "src/assets/posters/cowspiracy.jpg",
+    "trailer_url": "https://youtu.be/watch?v=7vpLVA0xNME",
+    "triggers": ["Meat & Seafood"]
+  },
+  {
+    "id": "seaspiracy",
+    "title": "Seaspiracy",
+    "hook": "Exposes the dark side of the fishing industry and its effect on oceans.",
+    "image_url": "src/assets/posters/seaspiracy.jpg",
+    "trailer_url": "https://youtu.be/watch?v=1Q5CXN7soQg",
+    "triggers": ["Meat & Seafood"]
+  },
+  {
+    "id": "the_game_changers",
+    "title": "The Game Changers",
+    "hook": "Shows how plant-based diets can enhance athletic performance.",
+    "image_url": "src/assets/posters/the_game_changers.jpg",
+    "trailer_url": "https://youtu.be/watch?v=iSpglxHTJVM",
+    "triggers": ["Fruits", "Vegetables", "Prepared Foods"]
+  },
+  {
+    "id": "kiss_the_ground",
+    "title": "Kiss the Ground",
+    "hook": "Explores regenerative agriculture and soil health.",
+    "image_url": "src/assets/posters/kiss_the_ground.jpg",
+    "trailer_url": "https://youtu.be/watch?v=K3-V1j-zMZw",
+    "triggers": ["Fruits", "Vegetables", "Asian Foods"]
+  }
+]

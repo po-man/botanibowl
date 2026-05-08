@@ -1,5 +1,5 @@
 // gameLogic.js - Core game logic and calculations
-import { getRandomIngredient, getRandomProfile } from '../data/dataService.js';
+import { getRandomIngredient, getRandomProfile, getDocumentaries } from '../data/dataService.js';
 
 export class GameState {
     constructor() {
@@ -95,6 +95,53 @@ export class GameState {
             feedback.push("Absolutely brilliant. You hit my macros perfectly, kept my heart healthy, and didn't destroy the planet doing it. A masterclass in sustainable nutrition!");
         }
         return feedback.join(' ');
+    }
+
+    getRecommendedDoc() {
+        const docs = getDocumentaries();
+        if (docs.length === 0) return null;
+
+        // Tally categories
+        const categoryCount = {};
+        this.bowl.forEach(ing => {
+            const cat = ing.category;
+            categoryCount[cat] = (categoryCount[cat] || 0) + 1;
+        });
+
+        // Find most common category
+        let maxCount = 0;
+        let topCategory = null;
+        for (const cat in categoryCount) {
+            if (categoryCount[cat] > maxCount) {
+                maxCount = categoryCount[cat];
+                topCategory = cat;
+            }
+        }
+
+        // Find doc with that trigger
+        const recommended = docs.find(doc => doc.triggers.includes(topCategory));
+        return recommended || docs.find(doc => doc.id === 'kiss_the_ground') || docs[0];
+    }
+
+    getStarMetrics() {
+        const metrics = {
+            carbs: { met: false, color: '#FFD700' },
+            protein: { met: false, color: '#FF6347' },
+            fats: { met: false, color: '#0000FF' },
+            water: { met: false, color: '#00BFFF' },
+            land: { met: false, color: '#8B4513' },
+        };
+
+        // Check if macros are within +/- 10% of target
+        if (Math.abs(this.current.carbs_g - this.targets.carbs_g) <= this.targets.carbs_g * 0.10) metrics.carbs.met = true;
+        if (Math.abs(this.current.protein_g - this.targets.protein_g) <= this.targets.protein_g * 0.10) metrics.protein.met = true;
+        if (Math.abs(this.current.fats_g - this.targets.fats_g) <= this.targets.fats_g * 0.10) metrics.fats.met = true;
+
+        // Check if eco stats are within budget
+        if (this.current.water_l <= this.targets.water_budget_l) metrics.water.met = true;
+        if (this.current.land_m2 <= this.targets.land_budget_m2) metrics.land.met = true;
+
+        return metrics;
     }
 }
 

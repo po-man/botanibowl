@@ -348,7 +348,99 @@ body {
     display: flex;
     flex-direction: column;
     align-items: center;
-    background: #fff;
+    background: linear-gradient(to bottom, #4CAF50, #8D6E63);
+}
+
+.results-card {
+    background: white;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    padding: 1rem;
+    max-width: 400px;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    max-height: 90vh;
+    overflow-y: auto;
+}
+
+.results-header {
+    font-size: 1.2rem;
+    font-weight: bold;
+    margin-bottom: 1rem;
+    color: #333;
+}
+
+.stars {
+    font-size: 2rem;
+    color: gold;
+    margin-bottom: 1rem;
+}
+
+.stars-container {
+    display: flex;
+    justify-content: center;
+    gap: 0.5rem;
+    margin-bottom: 1rem;
+}
+
+.star-outline {
+    font-size: 2rem;
+    color: #eeeeee;
+    position: relative;
+}
+
+.star-fill {
+    position: absolute;
+    top: 0;
+    left: 0;
+    transform: scale(0);
+    transition: transform 0.3s cubic-bezier(0.18, 0.89, 0.32, 1.28);
+}
+
+.star-fill.met {
+    transform: scale(1);
+}
+
+.visual-plate-container {
+    margin: 1rem 0;
+}
+
+.plate-svg {
+    width: 200px;
+    height: 200px;
+}
+
+.plate-svg .data-circle {
+    transition: stroke-dasharray 1s cubic-bezier(0.25, 1, 0.5, 1);
+}
+.plate-svg .overflow-circle {
+    transition: stroke-dasharray 0.5s ease-out;
+}
+.documentary-recommendation {
+    margin: 1rem 0;
+    border-radius: 10px;
+    background-color: #eeeeee;
+    padding: 1rem;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    text-align: center;
+}
+
+.documentary-recommendation h3{
+    margin-bottom: 0.5rem;
+}
+
+.documentary-recommendation a {
+    text-decoration: none;
+    color: inherit;
+    display: block;
+}
+
+.documentary-recommendation img {
+    border-radius: 5px;
+    width: 100%;
+    height: auto;
 }
 
 .stats {

@@ -1,11 +1,13 @@
 // dataService.js - Handles loading and providing game data
 let ingredients = [];
 let profiles = [];
+let documentaries = [];
 
 let maxIngredientValues = {
     carbs_g: 0,
     protein_g: 0,
     fats_g: 0,
+    sat_fats_g: 0,
     water_l: 0,
     land_m2: 0
 };
@@ -20,6 +22,11 @@ export function validateProfile(profile) {
     return required.every(key => profile.hasOwnProperty(key) && typeof profile[key] === 'number' || key === 'id' || key === 'name');
 }
 
+export function validateDocumentary(doc) {
+    const required = ['id', 'title', 'hook', 'image_url', 'trailer_url', 'triggers'];
+    return required.every(key => doc.hasOwnProperty(key) && (Array.isArray(doc.triggers) || key !== 'triggers'));
+}
+
 export async function loadData() {
     try {
         const ingredientsResponse = await fetch('./data/ingredients.json');
@@ -30,6 +37,10 @@ export async function loadData() {
         const profilesResponse = await fetch('./data/profiles.json');
         const rawProfiles = await profilesResponse.json();
         profiles = rawProfiles.filter(validateProfile);
+
+        const documentariesResponse = await fetch('./data/documentaries.json');
+        const rawDocumentaries = await documentariesResponse.json();
+        documentaries = rawDocumentaries.filter(validateDocumentary);
     } catch (error) {
         console.error('Error loading data:', error);
     }
@@ -40,6 +51,7 @@ function calculateMaxIngredientValues() {
         maxIngredientValues.carbs_g = Math.max(maxIngredientValues.carbs_g, ing.carbs_g);
         maxIngredientValues.protein_g = Math.max(maxIngredientValues.protein_g, ing.protein_g);
         maxIngredientValues.fats_g = Math.max(maxIngredientValues.fats_g, ing.fats_g);
+        maxIngredientValues.sat_fats_g = Math.max(maxIngredientValues.sat_fats_g || 0, ing.sat_fats_g || 0);
         maxIngredientValues.water_l = Math.max(maxIngredientValues.water_l, ing.water_l);
         maxIngredientValues.land_m2 = Math.max(maxIngredientValues.land_m2, ing.land_m2);
     });
@@ -51,6 +63,10 @@ export function getIngredients() {
 
 export function getProfiles() {
     return profiles;
+}
+
+export function getDocumentaries() {
+    return documentaries;
 }
 
 export function getMaxIngredientValues() {

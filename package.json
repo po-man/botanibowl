@@ -18,7 +18,6 @@
     "vite": "^8.0.10"
   },
   "dependencies": {
-    "chart.js": "^4.5.1",
     "hammerjs": "^2.0.8"
   }
 }
