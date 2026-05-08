@@ -53,6 +53,22 @@ export class GameState {
         return true;
     }
 
+    removeIngredient(index) {
+        const ingredient = this.bowl[index];
+        if (!ingredient) {
+            return false;
+        }
+        this.current.kcal = Math.max(0, this.current.kcal - ingredient.calories);
+        this.current.carbs_g = Math.max(0, this.current.carbs_g - ingredient.carbs_g);
+        this.current.fats_g = Math.max(0, this.current.fats_g - ingredient.fats_g);
+        this.current.sat_fats_g = Math.max(0, this.current.sat_fats_g - ingredient.sat_fats_g);
+        this.current.protein_g = Math.max(0, this.current.protein_g - ingredient.protein_g);
+        this.current.water_l = Math.max(0, this.current.water_l - ingredient.water_l);
+        this.current.land_m2 = Math.max(0, this.current.land_m2 - ingredient.land_m2);
+        this.bowl.splice(index, 1);
+        return true;
+    }
+
     advanceCard() {
         this.currentCard = this.nextCard;
         this.nextCard = getRandomIngredient(this.currentCard);

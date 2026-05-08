@@ -48,7 +48,7 @@ function setupGameplayScreen() {
     const app = document.getElementById('app');
     const hud = createHUD(gameState, true);
     const cardDeck = createCardDeck(gameState);
-    const bowl = createBowl(gameState, () => serveMeal());
+    const bowl = createBowl(gameState, () => serveMeal(), handleIngredientRemoval);
 
     app.appendChild(hud);
     app.appendChild(cardDeck);
@@ -56,6 +56,22 @@ function setupGameplayScreen() {
 
     attachCardGestures(cardDeck);
     resizeCard();
+}
+
+function handleIngredientRemoval(index) {
+    const removed = gameState.removeIngredient(index);
+    if (!removed) {
+        return;
+    }
+
+    const hud = document.querySelector('.hud');
+    const bowl = document.querySelector('.bowl');
+    if (hud) {
+        updateHUD(hud, gameState);
+    }
+    if (bowl) {
+        updateBowl(bowl, gameState, () => serveMeal(), handleIngredientRemoval);
+    }
 }
 
 function attachCardGestures(cardDeck) {
@@ -99,7 +115,7 @@ function swipeRight(startX) {
     }
 
     updateHUD(document.querySelector('.hud'), gameState);
-    updateBowl(document.querySelector('.bowl'), gameState, () => serveMeal());
+    updateBowl(document.querySelector('.bowl'), gameState, () => serveMeal(), handleIngredientRemoval);
 
     const cardDeck = document.querySelector('.card-deck');
     const card = cardDeck.querySelector('.current-card');

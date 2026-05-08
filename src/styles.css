@@ -350,15 +350,38 @@ body {
 
 .ingredient {
     font-size: var(--emoji-size);
+    display: inline-flex;
+    justify-content: center;
+    align-items: center;
+    width: 2.2rem;
+    height: 2.2rem;
+    border-radius: 0.75rem;
+    background: rgba(76, 175, 80, 0.08);
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.ingredient.dragging {
+    position: fixed;
+    z-index: 1000;
+    pointer-events: none;
+    transform: scale(1.15);
+    box-shadow: 0 10px 20px rgba(0,0,0,0.2);
 }
 
 .bowl button {
+    display: inline-flex;
+    justify-content: center;
+    align-items: center;
+    max-width: 4rem;
+    min-width: 4rem;
+    height: 5rem;
     padding: 0.5rem 1rem;
     background: #4CAF50;
     color: white;
     border: none;
     border-radius: 0.5rem;
     cursor: pointer;
+    text-align: center;
 }
 
 .bowl button.disabled,
@@ -367,6 +390,24 @@ body {
     color: #666;
     cursor: not-allowed;
 }
+
+#serve-btn.trash-mode {
+    background: #F44336;
+    color: white;
+    box-shadow: 0 0 0 0 rgba(244,67,54,0.5);
+    animation: trash-pulse 1.2s infinite;
+}
+
+#serve-btn.trash-hover {
+    background: #D32F2F;
+    transform: scale(1.04);
+}
+
+@keyframes trash-pulse {
+    0%, 100% { box-shadow: 0 0 0 0 rgba(244,67,54,0.25); }
+    50% { box-shadow: 0 0 0 8px rgba(244,67,54,0); }
+}
+
 /* Results Screen */
 .bowl button.shine {
     animation: shine-animation 1.5s infinite ease-in-out;
