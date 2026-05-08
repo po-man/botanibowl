@@ -75,13 +75,24 @@ export function getMaxIngredientValues() {
 
 export function getRandomIngredient(exclude = null) {
     if (ingredients.length === 0) return null;
-    if (ingredients.length === 1) return ingredients[0];
+
+    // 1. Group ingredients by category
+    const categories = [...new Set(ingredients.map(ing => ing.category))];
 
     let randomIngredient;
     do {
-        const index = Math.floor(Math.random() * ingredients.length);
-        randomIngredient = ingredients[index];
-    } while (exclude && randomIngredient.id === exclude.id);
+        // 2. Sample a random category
+        const randomCategory = categories[Math.floor(Math.random() * categories.length)];
+
+        // 3. Filter ingredients by that category
+        const categoryIngredients = ingredients.filter(ing => ing.category === randomCategory);
+
+        // 4. Sample an ingredient from the chosen category
+        const index = Math.floor(Math.random() * categoryIngredients.length);
+        randomIngredient = categoryIngredients[index];
+
+    } while (exclude && randomIngredient.id === exclude.id && ingredients.length > 1);
+
     return randomIngredient;
 }
 
