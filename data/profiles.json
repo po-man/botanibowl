@@ -20,6 +20,26 @@
     "pct_protein": 0.20
   },
   {
+    "id": "adult_f_pcos",
+    "name": "Adult Female (Low Carb)",
+    "emoji": "👩‍💼",
+    "description": "~28yo, managing blood sugar. Needs lower carbs, higher healthy fats.",
+    "target_kcal": 1600,
+    "pct_carbs": 0.25,
+    "pct_fats": 0.50,
+    "pct_protein": 0.25
+  },
+  {
+    "id": "adult_m_recomp",
+    "name": "Adult Male (Body Recomp)",
+    "emoji": "👨‍💼",
+    "description": "~35yo, sedentary job but trying to build muscle in a slight deficit.",
+    "target_kcal": 1900,
+    "pct_carbs": 0.40,
+    "pct_fats": 0.25,
+    "pct_protein": 0.35
+  },
+  {
     "id": "adult_senior",
     "name": "Senior Adult",
     "emoji": "🧓",
