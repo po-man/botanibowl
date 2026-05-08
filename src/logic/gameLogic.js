@@ -79,7 +79,7 @@ export class GameState {
     }
 
     isBowlFull() {
-        return this.bowl.length >= 18;
+        return this.bowl.length >= 24;
     }
 
     isRoundComplete() {

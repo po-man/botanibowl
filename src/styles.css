@@ -330,13 +330,14 @@ body {
 /* Bowl */
 .bowl {
     --emoji-size: 1.5rem;
+    --grid-gap: 0.5rem;
     padding: 1rem;
     background: #fff;
     border-top: 1px solid #ddd;
     display: flex;
     align-items: center;
-    min-height: 7.5rem;
-    max-height: 7.5rem;
+    min-height: 12rem;
+    max-height: 12rem;
 }
 
 .ingredients {
@@ -344,7 +345,6 @@ body {
     grid-template-columns: repeat(6, auto);
     gap: var(--grid-gap);
     align-content: start;
-    height: calc(var(--emoji-size) * 3 + var(--grid-gap) * 2);
     width: 100%;
 }
 
@@ -376,6 +376,7 @@ body {
     min-width: 4rem;
     height: 5rem;
     padding: 0.5rem 1rem;
+    margin-left: 0.5rem;
     background: #4CAF50;
     color: white;
     border: none;
