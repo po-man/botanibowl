@@ -1,6 +1,6 @@
 [
     {
-        "category": "Fruits",
+        "category": "Fruits (Antioxidant-Rich)",
         "emoji": "🍇",
         "name": "Grapes",
         "serving_size_g": 100.0,
@@ -26,7 +26,7 @@
         "id": "melon"
     },
     {
-        "category": "Fruits",
+        "category": "Fruits (Vitamin C)",
         "emoji": "🍊",
         "name": "Tangerine",
         "serving_size_g": 100.0,
@@ -39,7 +39,7 @@
         "id": "tangerine"
     },
     {
-        "category": "Fruits",
+        "category": "Fruits (Vitamin C)",
         "emoji": "🍋",
         "name": "Lemon",
         "serving_size_g": 50.0,
@@ -104,7 +104,7 @@
         "id": "peach"
     },
     {
-        "category": "Fruits",
+        "category": "Fruits (Antioxidant-Rich)",
         "emoji": "🍒",
         "name": "Cherries",
         "serving_size_g": 100.0,
@@ -117,7 +117,7 @@
         "id": "cherries"
     },
     {
-        "category": "Fruits",
+        "category": "Fruits (Antioxidant-Rich)",
         "emoji": "🫐",
         "name": "Blueberries",
         "serving_size_g": 100.0,
@@ -130,7 +130,7 @@
         "id": "blueberries"
     },
     {
-        "category": "Fruits",
+        "category": "Fruits (Vitamin C)",
         "emoji": "🥝",
         "name": "Kiwifruit",
         "serving_size_g": 100.0,
@@ -169,7 +169,7 @@
         "id": "coconut"
     },
     {
-        "category": "Vegetables",
+        "category": "Fruits",
         "emoji": "🥑",
         "name": "Avocado",
         "serving_size_g": 50.0,
@@ -260,7 +260,7 @@
         "id": "broccoli"
     },
     {
-        "category": "Vegetables",
+        "category": "Legumes",
         "emoji": "🥜",
         "name": "Peanut",
         "serving_size_g": 30.0,
@@ -273,7 +273,7 @@
         "id": "peanut"
     },
     {
-        "category": "Vegetables",
+        "category": "Legumes",
         "emoji": "🫘",
         "name": "Beans",
         "serving_size_g": 50.0,
@@ -286,7 +286,7 @@
         "id": "beans"
     },
     {
-        "category": "Vegetables",
+        "category": "Legumes",
         "emoji": "⬜",
         "name": "Tofu",
         "serving_size_g": 100.0,
@@ -299,7 +299,20 @@
         "id": "tofu"
     },
     {
-        "category": "Prepared Foods",
+        "category": "Legumes",
+        "emoji": "🫛",
+        "name": "Edamame",
+        "serving_size_g": 100.0,
+        "carbs_g": 8.6,
+        "protein_g": 10.3,
+        "fats_g": 4.7,
+        "water_l": 43.57,
+        "land_m2": 1.56,
+        "calories": 117.9,
+        "id": "edamame"
+    },
+    {
+        "category": "Animal-Based",
         "emoji": "🥚",
         "name": "Egg",
         "serving_size_g": 100.0,
@@ -312,7 +325,7 @@
         "id": "egg"
     },
     {
-        "category": "Prepared Foods",
+        "category": "Others",
         "emoji": "🍿",
         "name": "Popcorn",
         "serving_size_g": 30.0,
@@ -325,7 +338,7 @@
         "id": "popcorn"
     },
     {
-        "category": "Prepared Foods",
+        "category": "Carbs Foods",
         "emoji": "🍝",
         "name": "Spaghetti",
         "serving_size_g": 100.0,
@@ -338,7 +351,7 @@
         "id": "spaghetti"
     },
     {
-        "category": "Asian Foods",
+        "category": "Carbs Foods",
         "emoji": "🍚",
         "name": "Cooked Rice",
         "serving_size_g": 100.0,
@@ -351,7 +364,20 @@
         "id": "cooked_rice"
     },
     {
-        "category": "Sweets & Desserts",
+        "category": "Carbs Foods",
+        "emoji": "🍜",
+        "name": "Noodle Soup",
+        "serving_size_g": 100.0,
+        "carbs_g": 25.0,
+        "protein_g": 5.0,
+        "fats_g": 5.0,
+        "water_l": 64.75,
+        "land_m2": 0.39,
+        "calories": 165.0,
+        "id": "noodle_soup"
+    },
+    {
+        "category": "Others",
         "emoji": "🍫",
         "name": "Chocolate Bar",
         "serving_size_g": 30.0,
@@ -403,7 +429,7 @@
         "id": "soy_milk"
     },
     {
-        "category": "Meat & Seafood",
+        "category": "Animal-Based",
         "emoji": "🐄",
         "name": "Beef",
         "serving_size_g": 100.0,
@@ -416,7 +442,7 @@
         "id": "beef"
     },
     {
-        "category": "Meat & Seafood",
+        "category": "Animal-Based",
         "emoji": "🐖",
         "name": "Pork",
         "serving_size_g": 100.0,
@@ -429,7 +455,7 @@
         "id": "pork"
     },
     {
-        "category": "Meat & Seafood",
+        "category": "Animal-Based",
         "emoji": "🐓",
         "name": "Chicken",
         "serving_size_g": 100.0,
@@ -442,7 +468,7 @@
         "id": "chicken"
     },
     {
-        "category": "Meat & Seafood",
+        "category": "Animal-Based",
         "emoji": "🐑",
         "name": "Lamb",
         "serving_size_g": 100.0,
@@ -455,7 +481,7 @@
         "id": "lamb"
     },
     {
-        "category": "Meat & Seafood",
+        "category": "Animal-Based",
         "emoji": "🐟",
         "name": "Fish",
         "serving_size_g": 100.0,
@@ -468,7 +494,7 @@
         "id": "fish"
     },
     {
-        "category": "Meat & Seafood",
+        "category": "Animal-Based",
         "emoji": "🦐",
         "name": "Prawns",
         "serving_size_g": 100.0,
