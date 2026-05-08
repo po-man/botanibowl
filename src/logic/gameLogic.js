@@ -89,27 +89,55 @@ export class GameState {
     evaluateBowl() {
         const feedback = [];
         const satFatLimit = this.targets.target_kcal * 0.1 / 9; // grams
+
+        let healthFlag = false;
+        let ecoFlag = false;
+
+        // 1. Health Checks
         if (this.current.sat_fats_g > satFatLimit) {
             feedback.push("Oof, my arteries. That was delicious, but way too high in saturated fats. I need a nap.");
-        }
-        if (this.current.water_l > this.targets.water_budget_l) {
-            feedback.push("Did you drain a whole lake to make this? The water footprint on this bowl is massive.");
-        }
-        if (this.current.land_m2 > this.targets.land_budget_m2) {
-            feedback.push("A whole forest had to be cleared just to fit this meal on a plate. Not very sustainable.");
+            healthFlag = true;
         }
         if (this.current.protein_g < this.targets.protein_g * 0.85) {
             feedback.push("I'm still feeling a bit weak. This bowl didn't have nearly enough protein for my goals.");
+            healthFlag = true;
         }
         if (this.current.carbs_g > this.targets.carbs_g * 1.15) {
             feedback.push("Carb coma! Way too heavy on the starches.");
+            healthFlag = true;
         }
+
+        // 2. Eco Checks
+        if (this.current.water_l > this.targets.water_budget_l) {
+            feedback.push("Did you drain a whole lake to make this? The water footprint on this bowl is massive.");
+            ecoFlag = true;
+        }
+        if (this.current.land_m2 > this.targets.land_budget_m2) {
+            feedback.push("A whole forest had to be cleared just to fit this meal on a plate. Not very sustainable.");
+            ecoFlag = true;
+        }
+
+        // 3. Perfect Score Check
         const carbsInRange = Math.abs(this.current.carbs_g - this.targets.carbs_g) <= this.targets.carbs_g * 0.15;
         const fatsInRange = Math.abs(this.current.fats_g - this.targets.fats_g) <= this.targets.fats_g * 0.15;
         const proteinInRange = Math.abs(this.current.protein_g - this.targets.protein_g) <= this.targets.protein_g * 0.15;
-        if (carbsInRange && fatsInRange && proteinInRange && this.current.sat_fats_g <= satFatLimit && this.current.water_l <= this.targets.water_budget_l && this.current.land_m2 <= this.targets.land_budget_m2) {
-            feedback.push("Absolutely brilliant. You hit my macros perfectly, kept my heart healthy, and didn't destroy the planet doing it. A masterclass in sustainable nutrition!");
+
+        if (carbsInRange && fatsInRange && proteinInRange && !healthFlag && !ecoFlag) {
+            return "Absolutely brilliant. You hit my macros perfectly, kept my heart healthy, and didn't destroy the planet doing it. A masterclass in sustainable nutrition!";
         }
+
+        // 4. The Guaranteed Fallback (Fixes the empty string bug)
+        // If the bowl is mediocre (macros off, but didn't trip extreme flags)
+        if (feedback.length === 0) {
+            const animalProductsCount = this.bowl.filter(i => i.category === 'Animal-Based').length;
+
+            if (animalProductsCount > 0) {
+                feedback.push("Not a bad bowl, but it could be optimized. We can easily make this healthier and more sustainable by swapping some of those animal products for whole plant foods next time.");
+            } else {
+                feedback.push("A decent plant-based attempt! The macros were a little bit off my exact targets, but I really appreciate the eco-friendly choices.");
+            }
+        }
+
         return feedback.join(' ');
     }
 
@@ -117,26 +145,35 @@ export class GameState {
         const docs = getDocumentaries();
         if (docs.length === 0) return null;
 
-        // Tally categories
-        const categoryCount = {};
-        this.bowl.forEach(ing => {
-            const cat = ing.category;
-            categoryCount[cat] = (categoryCount[cat] || 0) + 1;
-        });
+        const satFatLimit = this.targets.target_kcal * 0.1 / 9;
+        const highSatFat = this.current.sat_fats_g > satFatLimit;
+        const highLand = this.current.land_m2 > this.targets.land_budget_m2;
+        const highWater = this.current.water_l > this.targets.water_budget_l;
 
-        // Find most common category
-        let maxCount = 0;
-        let topCategory = null;
-        for (const cat in categoryCount) {
-            if (categoryCount[cat] > maxCount) {
-                maxCount = categoryCount[cat];
-                topCategory = cat;
-            }
+        const hasSeafood = this.bowl.some(ing => ing.id === 'fish' || ing.id === 'prawns');
+        const animalProductsCount = this.bowl.filter(i => i.category === 'Animal-Based').length;
+
+        const goodProtein = this.current.protein_g >= this.targets.protein_g * 0.85;
+
+        // 1. Eco Violations -> Cowspiracy
+        if (highLand || highWater) {
+            return docs.find(d => d.id === 'cowspiracy') || docs[0];
+        }
+        // 2. Seafood -> Seaspiracy
+        if (hasSeafood) {
+            return docs.find(d => d.id === 'seaspiracy') || docs[0];
+        }
+        // 3. Health Violations (Sat Fats / High Meat) -> What the Health
+        if (highSatFat || animalProductsCount >= 2) {
+            return docs.find(d => d.id === 'what_the_health') || docs[0];
+        }
+        // 4. WFPB Win (Good protein, no meat) -> The Game Changers
+        if (animalProductsCount === 0 && goodProtein) {
+            return docs.find(d => d.id === 'the_game_changers') || docs[0];
         }
 
-        // Find doc with that trigger
-        const recommended = docs.find(doc => doc.triggers.includes(topCategory));
-        return recommended || docs.find(doc => doc.id === 'kiss_the_ground') || docs[0];
+        // 5. General Fallback -> Forks Over Knives
+        return docs.find(d => d.id === 'forks_over_knives') || docs[0];
     }
 
     getStarMetrics() {

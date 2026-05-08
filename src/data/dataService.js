@@ -23,8 +23,8 @@ export function validateProfile(profile) {
 }
 
 export function validateDocumentary(doc) {
-    const required = ['id', 'title', 'hook', 'image_url', 'trailer_url', 'triggers'];
-    return required.every(key => doc.hasOwnProperty(key) && (Array.isArray(doc.triggers) || key !== 'triggers'));
+    const required = ['id', 'title', 'hook', 'image_url', 'trailer_url'];
+    return required.every(key => doc.hasOwnProperty(key));
 }
 
 export async function loadData() {
