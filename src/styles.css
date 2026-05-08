@@ -335,14 +335,13 @@ body {
     background: #fff;
     border-top: 1px solid #ddd;
     display: flex;
-    align-items: center;
     min-height: 12rem;
     max-height: 12rem;
 }
 
 .ingredients {
     display: grid;
-    grid-template-columns: repeat(6, auto);
+    grid-template-columns: repeat(6, 2.5rem);
     gap: var(--grid-gap);
     align-content: start;
     width: 100%;
@@ -368,15 +367,8 @@ body {
     box-shadow: 0 10px 20px rgba(0,0,0,0.2);
 }
 
-.bowl button {
-    display: inline-flex;
-    justify-content: center;
-    align-items: center;
-    max-width: 4rem;
-    min-width: 4rem;
-    height: 5rem;
-    padding: 0.5rem 1rem;
-    margin-left: 0.5rem;
+.bowl button,
+.results-card #next-btn {
     background: #4CAF50;
     color: white;
     border: none;
@@ -385,11 +377,29 @@ body {
     text-align: center;
 }
 
+.bowl button {
+    display: inline-flex;
+    justify-content: center;
+    align-items: center;
+    max-width: 4rem;
+    min-width: 4rem;
+    height: 100%;
+    padding: 0.5rem 1rem;
+    margin-left: 0.5rem;
+}
+
 .bowl button.disabled,
 .bowl button:disabled {
     background: #ccc;
     color: #666;
     cursor: not-allowed;
+}
+
+.results-card #next-btn {
+    width: 100%;
+    padding: 1rem;
+    font-size: 1.2rem;
+    margin-top: 1rem;
 }
 
 #serve-btn.trash-mode {
@@ -409,8 +419,7 @@ body {
     50% { box-shadow: 0 0 0 8px rgba(244,67,54,0); }
 }
 
-/* Results Screen */
-.bowl button.shine {
+.shine {
     animation: shine-animation 1.5s infinite ease-in-out;
 }
 
@@ -522,7 +531,7 @@ body {
     border: 1px solid #eee;
     font-style: italic;
     text-align: center;
-    margin: 1rem 0;
+    margin-bottom: 1rem;
 }
 
 .documentary-recommendation {

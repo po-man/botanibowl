@@ -236,7 +236,7 @@ export function updateResultsScreen(container, gameState, onNextCustomer) {
             <div class="speech-bubble">
                 ${feedback}
             </div>
-            <div class="visuals-container" style="display: flex; justify-content: center; align-items: center; gap: 0.5rem; margin: 1rem 0;">
+            <div class="visuals-container" style="display: flex; justify-content: center; align-items: center; gap: 0.5rem; margin-bottom: 1rem;">
                 <div class="visual-plate-container">${createPlateSVG(gameState)}</div>
                 <div class="visual-eco-container">${createEcoScoresSVG(gameState)}</div>
             </div>
