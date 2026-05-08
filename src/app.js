@@ -46,7 +46,7 @@ function startGame() {
 
 function setupGameplayScreen() {
     const app = document.getElementById('app');
-    const hud = createHUD(gameState);
+    const hud = createHUD(gameState, true);
     const cardDeck = createCardDeck(gameState);
     const bowl = createBowl(gameState, () => serveMeal());
 

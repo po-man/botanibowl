@@ -1,34 +1,82 @@
 [
   {
-    "id": "adult_standard",
-    "name": "Standard Adult",
-    "target_kcal": 1500,
+    "id": "adult_m_sedentary",
+    "name": "Adult Male (Sedentary)",
+    "emoji": "👨‍💻",
+    "description": "~30yo, 75kg, desk job",
+    "target_kcal": 2000,
     "pct_carbs": 0.50,
     "pct_fats": 0.30,
     "pct_protein": 0.20
   },
   {
-    "id": "child",
-    "name": "Child",
-    "target_kcal": 1000,
-    "pct_carbs": 0.55,
+    "id": "adult_f_sedentary",
+    "name": "Adult Female (Sedentary)",
+    "emoji": "👩‍💻",
+    "description": "~28yo, 60kg, desk job",
+    "target_kcal": 1600,
+    "pct_carbs": 0.50,
     "pct_fats": 0.30,
-    "pct_protein": 0.15
+    "pct_protein": 0.20
   },
   {
-    "id": "athlete",
-    "name": "Athlete",
-    "target_kcal": 1800,
+    "id": "adult_senior",
+    "name": "Senior Adult",
+    "emoji": "🧓",
+    "description": "~65yo, lower kcal needs but higher protein for muscle preservation",
+    "target_kcal": 1500,
+    "pct_carbs": 0.45,
+    "pct_fats": 0.30,
+    "pct_protein": 0.25
+  },
+  {
+    "id": "adult_weight_loss",
+    "name": "Adult (Weight Loss)",
+    "emoji": "️🚶",
+    "description": "Caloric deficit, higher protein for satiety",
+    "target_kcal": 1400,
+    "pct_carbs": 0.35,
+    "pct_fats": 0.30,
+    "pct_protein": 0.35
+  },
+  {
+    "id": "adult_muscle_gain",
+    "name": "Adult (Muscle Gain)",
+    "emoji": "💪",
+    "description": "Caloric surplus, balanced high-protein bulk",
+    "target_kcal": 2400,
     "pct_carbs": 0.45,
     "pct_fats": 0.25,
     "pct_protein": 0.30
   },
   {
-    "id": "keto_dieter",
-    "name": "Keto Dieter",
-    "target_kcal": 1600,
-    "pct_carbs": 0.10,
-    "pct_fats": 0.65,
-    "pct_protein": 0.25
+    "id": "athlete_endurance",
+    "name": "Endurance Athlete",
+    "emoji": "🏃‍♂️",
+    "description": "E.g., Marathoner. High carb requirement for glycogen stores.",
+    "target_kcal": 2600,
+    "pct_carbs": 0.55,
+    "pct_fats": 0.25,
+    "pct_protein": 0.20
+  },
+  {
+    "id": "athlete_strength",
+    "name": "Strength Athlete",
+    "emoji": "🏋️‍♂️",
+    "description": "E.g., Powerlifter. High protein requirement for muscle repair.",
+    "target_kcal": 2800,
+    "pct_carbs": 0.40,
+    "pct_fats": 0.25,
+    "pct_protein": 0.35
+  },
+  {
+    "id": "child_growing",
+    "name": "Child",
+    "emoji": "🧒",
+    "description": "Active, growing child with balanced needs",
+    "target_kcal": 1200,
+    "pct_carbs": 0.55,
+    "pct_fats": 0.30,
+    "pct_protein": 0.15
   }
 ]

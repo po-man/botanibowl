@@ -6,10 +6,18 @@ export function createHUD(gameState) {
     return container;
 }
 
-export function updateHUD(container, gameState, ghost = null) {
+function attachHudInteractivity(container) {
+    const header = container.querySelector('.hud-header');
+    header.addEventListener('click', () => container.querySelector('.tooltip-drawer').classList.toggle('show'));
+}
+
+export function updateHUD(container, gameState, ghost = null, initialRender = false) {
     const profile = gameState.currentProfile;
     const targets = gameState.targets;
     const current = gameState.current;
+
+    // Check if the tooltip is currently visible before we re-render the innerHTML.
+    const isTooltipVisible = container.querySelector('.tooltip-drawer.show');
 
     const carbsCurrentWidth = Math.min((current.carbs_g / targets.carbs_g) * 100, 100);
     const proteinCurrentWidth = Math.min((current.protein_g / targets.protein_g) * 100, 100);
@@ -38,7 +46,16 @@ export function updateHUD(container, gameState, ghost = null) {
     }
 
     container.innerHTML = `
-        <div class="diner-tag">Target: ${profile.name} - ${targets.target_kcal} kcal</div>
+        <div class="hud-header">
+            <div class="diner-avatar">${profile.emoji}</div>
+            <div class="diner-info">
+                <div class="diner-name">${profile.name}</div>
+                <div class="diner-target">Target: ${targets.target_kcal} kcal</div>
+            </div>
+            <div class="info-toggle">ℹ️</div>
+        </div>
+        <div class="tooltip-drawer ${isTooltipVisible ? 'show' : ''}">${profile.description}</div>
+
         <div class="macro-bars">
             <div class="bar-container" style="flex-grow: ${profile.pct_carbs}">
                 <div class="bar carbs ${current.carbs_g > targets.carbs_g ? 'over' : ''}">
@@ -79,4 +96,7 @@ export function updateHUD(container, gameState, ghost = null) {
             </div>
         </div>
     `;
+
+    // Always attach interactivity, as innerHTML wipes out previous listeners.
+    attachHudInteractivity(container);
 }

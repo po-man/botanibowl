@@ -54,13 +54,49 @@ body {
     gap: 0.5rem;
 }
 
-.diner-tag {
-    font-weight: bold;
+.hud-header {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    cursor: pointer;
+}
+
+.diner-avatar {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    background: #eee;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 1.5rem;
+}
+
+.diner-info {
+    flex: 1;
+}
+
+.diner-name { font-weight: bold; }
+.diner-target { font-size: 0.8rem; color: #666; }
+
+.tooltip-drawer {
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.3s ease-out, padding 0.3s ease-out;
+    font-size: 0.8rem;
+    background: #f8f9fa;
+    border-radius: 4px;
+    padding: 0 0.5rem;
 }
 
 .macro-bars, .eco-bars {
     display: flex;
     gap: 0.5rem;
+}
+
+.tooltip-drawer.show {
+    max-height: 5rem; /* Or enough to fit content */
+    padding: 0.5rem;
 }
 
 .bar-container {
@@ -365,13 +401,6 @@ body {
     overflow-y: auto;
 }
 
-.results-header {
-    font-size: 1.2rem;
-    font-weight: bold;
-    margin-bottom: 1rem;
-    color: #333;
-}
-
 .stars {
     font-size: 2rem;
     color: gold;
@@ -418,6 +447,42 @@ body {
 .plate-svg .overflow-circle {
     transition: stroke-dasharray 0.5s ease-out;
 }
+
+.reviewer-block {
+    text-align: center;
+    margin-bottom: 1rem;
+    padding-bottom: 1rem;
+    border-bottom: 1px solid #eee;
+    width: 100%;
+}
+
+.reviewer-avatar {
+    font-size: 3rem;
+    margin-bottom: 0.5rem;
+}
+
+.reviewer-name {
+    font-weight: bold;
+    font-size: 1.2rem;
+}
+
+.reviewer-bio {
+    font-style: italic;
+    color: #666;
+    font-size: 0.9rem;
+}
+
+.speech-bubble {
+    position: relative;
+    background: #f8f9fa;
+    border-radius: .4em;
+    padding: 1rem;
+    border: 1px solid #eee;
+    font-style: italic;
+    text-align: center;
+    margin: 1rem 0;
+}
+
 .documentary-recommendation {
     margin: 1rem 0;
     border-radius: 10px;
@@ -445,12 +510,6 @@ body {
 
 .stats {
     margin-bottom: 1rem;
-}
-
-.feedback {
-    margin: 1rem 0;
-    font-style: italic;
-    text-align: center;
 }
 
 /* Mobile-first responsive design */

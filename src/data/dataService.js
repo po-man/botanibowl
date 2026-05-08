@@ -18,8 +18,8 @@ export function validateIngredient(ingredient) {
 }
 
 export function validateProfile(profile) {
-    const required = ['id', 'name', 'target_kcal', 'pct_carbs', 'pct_fats', 'pct_protein'];
-    return required.every(key => profile.hasOwnProperty(key) && typeof profile[key] === 'number' || key === 'id' || key === 'name');
+    const required = ['id', 'name', 'emoji', 'description', 'target_kcal', 'pct_carbs', 'pct_fats', 'pct_protein'];
+    return required.every(key => profile.hasOwnProperty(key));
 }
 
 export function validateDocumentary(doc) {

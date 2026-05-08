@@ -227,9 +227,15 @@ export function updateResultsScreen(container, gameState, onNextCustomer) {
 
     container.innerHTML = `
         <div class="results-card">
-            <div class="results-header">Target: ${gameState.currentProfile.name} - ${targets.target_kcal} kcal</div>
+            <div class="reviewer-block">
+                <div class="reviewer-avatar">${gameState.currentProfile.emoji}</div>
+                <div class="reviewer-name">${gameState.currentProfile.name}</div>
+                <div class="reviewer-bio">${gameState.currentProfile.description}</div>
+            </div>
             <div class="stars-container">${starsHTML}</div>
-            <div class="feedback">${feedback}</div>
+            <div class="speech-bubble">
+                ${feedback}
+            </div>
             <div class="visuals-container" style="display: flex; justify-content: center; align-items: center; gap: 0.5rem; margin: 1rem 0;">
                 <div class="visual-plate-container">${createPlateSVG(gameState)}</div>
                 <div class="visual-eco-container">${createEcoScoresSVG(gameState)}</div>
