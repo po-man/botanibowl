@@ -1,14 +1,19 @@
 // renderer.js - Rendering and animation utilities
 
 // Easing function for a smooth, elastic bounce effect
-function easeOutElastic(x) {
+/**
+ * @param {number} x The progress of the animation (0 to 1)
+ * @param {number} decay Controls how quickly the bounce effect fades. A higher number means a faster decay.
+ * @param {number} frequency Controls the number of bounces. A higher number means more bounces.
+ */
+function easeOutElastic(x, decay = 10, frequency = 10) {
     const c4 = (2 * Math.PI) / 3;
 
     return x === 0
       ? 0
       : x === 1
       ? 1
-      : Math.pow(2, -10 * x) * Math.sin((x * 10 - 0.75) * c4) + 1;
+      : Math.pow(2, -decay * x) * Math.sin((x * frequency - 0.75) * c4) + 1;
 }
 
 export function animateCardSwipe(cardElement, direction, onComplete, startX = 0) {
@@ -32,7 +37,7 @@ export function animateCardSwipe(cardElement, direction, onComplete, startX = 0)
 }
 
 export function animateNextCardToCenter(nextCardElement, onComplete) {
-    const duration = 300; // ms
+    const duration = 150; // ms
     const startTime = Date.now();
 
     // Start state: translateY(12px) scale(0.95) opacity 0.8
@@ -48,7 +53,7 @@ export function animateNextCardToCenter(nextCardElement, onComplete) {
     function animate() {
         const elapsed = Date.now() - startTime;
         const linearProgress = Math.min(elapsed / duration, 1);
-        const easedProgress = easeOutElastic(linearProgress); // Apply easing
+        const easedProgress = easeOutElastic(linearProgress, 8, 12); // Apply easing
 
         const currentY = startY + (endY - startY) * easedProgress;
         const currentScale = startScale + (endScale - startScale) * easedProgress;
