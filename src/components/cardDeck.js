@@ -1,5 +1,6 @@
 // cardDeck.js - Card deck component
 import { getMaxIngredientValues } from '../data/dataService.js';
+import { getTranslations } from '../data/dataService.js';
 import { createRadarChartSVG } from '../utils/radarChart.js';
 export function createCardDeck(gameState) {
     const container = document.createElement('div');
@@ -11,6 +12,7 @@ export function createCardDeck(gameState) {
 export function updateCardDeck(container, gameState) {
     const card = gameState.currentCard;
     const nextCard = gameState.nextCard;
+    const t = getTranslations(gameState.language);
     if (!card || !nextCard) return;
 
     const maxValues = getMaxIngredientValues();
@@ -21,11 +23,11 @@ export function updateCardDeck(container, gameState) {
         <div class="tutorial-overlay">
             <div class="tutorial-arrow left">
                 <span class="arrow">◀◀</span>
-                <span class="caption">Skip</span>
+                <span class="caption">${t.skip}</span>
             </div>
             <div class="tutorial-arrow right">
                 <span class="arrow">▶▶</span>
-                <span class="caption">Keep</span>
+                <span class="caption">${t.keep}</span>
             </div>
         </div>
     ` : '';
@@ -37,7 +39,7 @@ export function updateCardDeck(container, gameState) {
                 <div class="card-info">
                     <div class="emoji">${nextCard.emoji}</div>
                     <div class="name-serving-group">
-                        <div class="name">${nextCard.name}</div>
+                        <div class="name">${nextCard[`name_${gameState.language}`]}</div>
                         <div class="serving">${nextCard.serving_size_g}g</div>
                     </div>
                 </div>
@@ -47,7 +49,7 @@ export function updateCardDeck(container, gameState) {
                 <div class="card-info">
                     <div class="emoji">${card.emoji}</div>
                     <div class="name-serving-group">
-                        <div class="name">${card.name}</div>
+                        <div class="name">${card[`name_${gameState.language}`]}</div>
                         <div class="serving">${card.serving_size_g}g</div>
                     </div>
                 </div>

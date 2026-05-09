@@ -1,5 +1,5 @@
 // app.js - Main application logic
-import { loadData, getRandomIngredient } from './data/dataService.js';
+import { loadData } from './data/dataService.js';
 import { GameState } from './logic/gameLogic.js';
 import { createMainMenu } from './components/mainMenu.js';
 import { createHUD, updateHUD } from './components/hud.js';
@@ -26,7 +26,7 @@ function showScreen(screen) {
 
     switch (screen) {
         case 'MENU':
-            const menu = createMainMenu(() => startGame());
+            const menu = createMainMenu(gameState, () => startGame(), toggleLanguage);
             app.appendChild(menu);
             break;
         case 'GAMEPLAY':
@@ -37,6 +37,11 @@ function showScreen(screen) {
             app.appendChild(results);
             break;
     }
+}
+
+function toggleLanguage(lang) {
+    gameState.setLanguage(lang);
+    showScreen(gameState.currentState); // Re-render the current screen with the new language
 }
 
 function startGame() {

@@ -1,10 +1,12 @@
 // resultsScreen.js - Results screen component
+import { getTranslations } from '../data/dataService.js';
 
 function createPlateSVG(gameState) {
     const size = 200;
     const center = size / 2;
     const strokeWidth = 20;
     const current = gameState.current;
+    const t = getTranslations(gameState.language);
     const targets = gameState.targets;
 
     // Define macro properties for clarity
@@ -56,15 +58,15 @@ function createPlateSVG(gameState) {
     const annotationX = center - 4; // Position to the left of the center
     const annotationYOffset = 4; // Vertical spacing between annotations
     svg += `
-        <text x="${annotationX}" y="${center - macroConfig.carbs_g.radius + annotationYOffset}" text-anchor="end" font-size="12" fill="#333" stroke="white" stroke-width="3" paint-order="stroke">Carbs</text>
+        <text x="${annotationX}" y="${center - macroConfig.carbs_g.radius + annotationYOffset}" text-anchor="end" font-size="12" fill="#333" stroke="white" stroke-width="3" paint-order="stroke">${t.carbs}</text>
         <text x="${annotationX+27}" y="${center - macroConfig.carbs_g.radius + annotationYOffset}" text-anchor="end" font-size="10" fill="#333" stroke="white" stroke-width="3" paint-order="stroke">${Math.round(current.carbs_g)}</text>
         <text x="${annotationX+30}" y="${center - macroConfig.carbs_g.radius + annotationYOffset}" text-anchor="start" font-size="10" fill="#666" stroke="white" stroke-width="3" paint-order="stroke">/ ${Math.round(targets.carbs_g)}g</text>
 
-        <text x="${annotationX}" y="${center - macroConfig.fats_g.radius + annotationYOffset}" text-anchor="end" font-size="12" fill="#333" stroke="white" stroke-width="3" paint-order="stroke">Fats</text>
+        <text x="${annotationX}" y="${center - macroConfig.fats_g.radius + annotationYOffset}" text-anchor="end" font-size="12" fill="#333" stroke="white" stroke-width="3" paint-order="stroke">${t.fats}</text>
         <text x="${annotationX+27}" y="${center - macroConfig.fats_g.radius + annotationYOffset}" text-anchor="end" font-size="10" fill="#333" stroke="white" stroke-width="3" paint-order="stroke">${Math.round(current.fats_g)}</text>
         <text x="${annotationX+30}" y="${center - macroConfig.fats_g.radius + annotationYOffset}" text-anchor="start" font-size="10" fill="#666" stroke="white" stroke-width="3" paint-order="stroke">/ ${Math.round(targets.fats_g)}g</text>
 
-        <text x="${annotationX}" y="${center - macroConfig.protein_g.radius + annotationYOffset}" text-anchor="end" font-size="12" fill="#333" stroke="white" stroke-width="3" paint-order="stroke">Protein</text>
+        <text x="${annotationX}" y="${center - macroConfig.protein_g.radius + annotationYOffset}" text-anchor="end" font-size="12" fill="#333" stroke="white" stroke-width="3" paint-order="stroke">${t.protein}</text>
         <text x="${annotationX+27}" y="${center - macroConfig.protein_g.radius + annotationYOffset}" text-anchor="end" font-size="10" fill="#333" stroke="white" stroke-width="3" paint-order="stroke">${Math.round(current.protein_g)}</text>
         <text x="${annotationX+30}" y="${center - macroConfig.protein_g.radius + annotationYOffset}" text-anchor="start" font-size="10" fill="#666" stroke="white" stroke-width="3" paint-order="stroke">/ ${Math.round(targets.protein_g)}g</text>
 
@@ -86,6 +88,7 @@ function createEcoScoresSVG(gameState) {
         land: 55
     };
     const current = gameState.current;
+    const t = getTranslations(gameState.language);
 
 
     return `
@@ -111,15 +114,15 @@ function createEcoScoresSVG(gameState) {
 
             <!-- Stats -->
             <text x="${barX.water + barWidth / 2}" y="25" text-anchor="middle" font-size="10" fill="#333" stroke="white" stroke-width="3" paint-order="stroke">
-                <tspan>${Math.round(current.water_l)}L</tspan><tspan x="${barX.water + barWidth / 2}" dy="1.2em">used</tspan>
+                <tspan>${Math.round(current.water_l)}L</tspan><tspan x="${barX.water + barWidth / 2}" dy="1.2em">${t.used}</tspan>
             </text>
             <text x="${barX.land + barWidth / 2}" y="25" text-anchor="middle" font-size="10" fill="#333" stroke="white" stroke-width="3" paint-order="stroke">
-                <tspan>${Math.round(current.land_m2)}m²</tspan><tspan x="${barX.land + barWidth / 2}" dy="1.2em">used</tspan>
+                <tspan>${Math.round(current.land_m2)}m²</tspan><tspan x="${barX.land + barWidth / 2}" dy="1.2em">${t.used}</tspan>
             </text>
 
             <!-- Labels -->
-            <text x="${barX.water + barWidth / 2}" y="185" text-anchor="middle" font-size="12" fill="#333" stroke="white" stroke-width="3" paint-order="stroke">Water</text>
-            <text x="${barX.land + barWidth / 2}" y="185" text-anchor="middle" font-size="12" fill="#333" stroke="white" stroke-width="3" paint-order="stroke">Land</text>
+            <text x="${barX.water + barWidth / 2}" y="185" text-anchor="middle" font-size="12" fill="#333" stroke="white" stroke-width="3" paint-order="stroke">${t.water}</text>
+            <text x="${barX.land + barWidth / 2}" y="185" text-anchor="middle" font-size="12" fill="#333" stroke="white" stroke-width="3" paint-order="stroke">${t.land}</text>
         </svg>
     `;
 }
@@ -211,6 +214,7 @@ export function createResultsScreen(gameState, onNextCustomer) {
 export function updateResultsScreen(container, gameState, onNextCustomer) {
     const current = gameState.current;
     const targets = gameState.targets;
+    const t = getTranslations(gameState.language);
     const feedback = gameState.evaluateBowl();
     const recommendedDoc = gameState.getRecommendedDoc();
     const starMetrics = gameState.getStarMetrics();
@@ -229,8 +233,8 @@ export function updateResultsScreen(container, gameState, onNextCustomer) {
         <div class="results-card">
             <div class="reviewer-block">
                 <div class="reviewer-avatar">${gameState.currentProfile.emoji}</div>
-                <div class="reviewer-name">${gameState.currentProfile.name}</div>
-                <div class="reviewer-bio">${gameState.currentProfile.description}</div>
+                <div class="reviewer-name">${gameState.currentProfile[`name_${gameState.language}`]}</div>
+                <div class="reviewer-bio">${gameState.currentProfile[`description_${gameState.language}`]}</div>
             </div>
             <div class="stars-container">${starsHTML}</div>
             <div class="speech-bubble">
@@ -243,14 +247,14 @@ export function updateResultsScreen(container, gameState, onNextCustomer) {
             ${recommendedDoc ? `
             <div class="documentary-recommendation">
                 <a href="${recommendedDoc.trailer_url}" target="_blank">
-                    <h3>Learn More</h3>
-                    <img src="${recommendedDoc.image_url}" alt="${recommendedDoc.title}">
-                    <p><strong>${recommendedDoc.title}</strong></p>
-                    <p>${recommendedDoc.hook}</p>
+                    <h3>${t.learn_more}</h3>
+                    <img src="${recommendedDoc.image_url}" alt="${recommendedDoc[`title_${gameState.language}`]}">
+                    <p><strong>${recommendedDoc[`title_${gameState.language}`]}</strong></p>
+                    <p>${recommendedDoc[`hook_${gameState.language}`]}</p>
                 </a>
             </div>
             ` : ''}
-            <button id="next-btn">Next Customer</button>
+            <button id="next-btn">${t.next_customer}</button>
         </div>
     `;
 

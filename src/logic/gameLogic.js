@@ -1,10 +1,11 @@
 // gameLogic.js - Core game logic and calculations
-import { getRandomIngredient, getRandomProfile, getDocumentaries } from '../data/dataService.js';
+import { getRandomIngredient, getRandomProfile, getDocumentaries, getTranslations } from '../data/dataService.js';
 
 export class GameState {
     constructor() {
         this.currentState = 'MENU'; // MENU, GAMEPLAY, RESULTS
         this.currentProfile = null;
+        this.language = 'zh'; // 'en' or 'zh'
         this.targets = {};
         this.current = {
             kcal: 0,
@@ -19,6 +20,10 @@ export class GameState {
         this.currentCard = null;
         this.nextCard = null;
         this.tutorialCompleted = false;
+    }
+
+    setLanguage(lang) {
+        this.language = lang;
     }
 
     resetRound() {
@@ -87,6 +92,7 @@ export class GameState {
     }
 
     evaluateBowl() {
+        const t = getTranslations(this.language);
         const feedback = [];
         const satFatLimit = this.targets.target_kcal * 0.1 / 9; // grams
 
@@ -95,25 +101,25 @@ export class GameState {
 
         // 1. Health Checks
         if (this.current.sat_fats_g > satFatLimit) {
-            feedback.push("Oof, my arteries. That was delicious, but way too high in saturated fats. I need a nap.");
+            feedback.push(t.feedback_sat_fat);
             healthFlag = true;
         }
         if (this.current.protein_g < this.targets.protein_g * 0.85) {
-            feedback.push("I'm still feeling a bit weak. This bowl didn't have nearly enough protein for my goals.");
+            feedback.push(t.feedback_low_protein);
             healthFlag = true;
         }
         if (this.current.carbs_g > this.targets.carbs_g * 1.15) {
-            feedback.push("Carb coma! Way too heavy on the starches.");
+            feedback.push(t.feedback_high_carbs);
             healthFlag = true;
         }
 
         // 2. Eco Checks
         if (this.current.water_l > this.targets.water_budget_l) {
-            feedback.push("Did you drain a whole lake to make this? The water footprint on this bowl is massive.");
+            feedback.push(t.feedback_high_water);
             ecoFlag = true;
         }
         if (this.current.land_m2 > this.targets.land_budget_m2) {
-            feedback.push("A whole forest had to be cleared just to fit this meal on a plate. Not very sustainable.");
+            feedback.push(t.feedback_high_land);
             ecoFlag = true;
         }
 
@@ -123,7 +129,7 @@ export class GameState {
         const proteinInRange = Math.abs(this.current.protein_g - this.targets.protein_g) <= this.targets.protein_g * 0.15;
 
         if (carbsInRange && fatsInRange && proteinInRange && !healthFlag && !ecoFlag) {
-            return "Absolutely brilliant. You hit my macros perfectly, kept my heart healthy, and didn't destroy the planet doing it. A masterclass in sustainable nutrition!";
+            return t.feedback_perfect;
         }
 
         // 4. The Guaranteed Fallback (Fixes the empty string bug)
@@ -132,9 +138,9 @@ export class GameState {
             const animalProductsCount = this.bowl.filter(i => i.category === 'Animal-Based').length;
 
             if (animalProductsCount > 0) {
-                feedback.push("Not a bad bowl, but it could be optimized. We can easily make this healthier and more sustainable by swapping some of those animal products for whole plant foods next time.");
+                feedback.push(t.feedback_fallback_animal);
             } else {
-                feedback.push("A decent plant-based attempt! The macros were a little bit off my exact targets, but I really appreciate the eco-friendly choices.");
+                feedback.push(t.feedback_fallback_plant);
             }
         }
 

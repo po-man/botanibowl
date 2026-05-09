@@ -1,4 +1,6 @@
 // bowl.js - Bowl component
+import { getTranslations } from '../data/dataService.js';
+
 export function createBowl(gameState, onServeMeal, onRemoveIngredient, onAddIngredient) {
     const container = document.createElement('div');
     container.className = 'bowl';
@@ -10,13 +12,14 @@ export function updateBowl(container, gameState, onServeMeal, onRemoveIngredient
     const bowlHTML = gameState.bowl.map((ing, index) => `<span class="ingredient" data-index="${index}">${ing.emoji}</span>`).join('');
     const hasIngredients = gameState.bowl.length > 0;
     const isFull = gameState.isBowlFull();
+    const t = getTranslations(gameState.language);
 
     const buttonClasses = [isFull ? 'shine' : '', !hasIngredients ? 'disabled' : ''].filter(Boolean).join(' ');
 
     container.innerHTML = `
         <div class="ingredients">${bowlHTML}</div>
         <div class="bowl-actions">
-            <button id="serve-btn" class="${buttonClasses}" ${hasIngredients ? '' : 'disabled'}>Serve Meal</button>
+            <button id="serve-btn" class="${buttonClasses}" ${hasIngredients ? '' : 'disabled'}>${t.serve_meal}</button>
         </div>
     `;
     const serveBtn = container.querySelector('#serve-btn');
@@ -105,8 +108,8 @@ export function updateBowl(container, gameState, onServeMeal, onRemoveIngredient
 
             if (actionsContainer) {
                 actionsContainer.innerHTML = `
-                    <button id="drop-btn" class="bowl-action-btn drop">Drop</button>
-                    <button id="double-btn" class="bowl-action-btn double" ${isFull ? 'disabled' : ''}>Double</button>
+                    <button id="drop-btn" class="bowl-action-btn drop">${t.drop}</button>
+                    <button id="double-btn" class="bowl-action-btn double" ${isFull ? 'disabled' : ''}>${t.double}</button>
                 `;
             }
         }, { passive: false });

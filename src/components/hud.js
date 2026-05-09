@@ -1,4 +1,6 @@
 // hud.js - Heads Up Display component
+import { getTranslations } from '../data/dataService.js';
+
 export function createHUD(gameState) {
     const container = document.createElement('div');
     container.className = 'hud';
@@ -14,6 +16,7 @@ function attachHudInteractivity(container) {
 export function updateHUD(container, gameState, ghost = null, initialRender = false) {
     const profile = gameState.currentProfile;
     const targets = gameState.targets;
+    const t = getTranslations(gameState.language);
     const current = gameState.current;
 
     // Check if the tooltip is currently visible before we re-render the innerHTML.
@@ -49,12 +52,12 @@ export function updateHUD(container, gameState, ghost = null, initialRender = fa
         <div class="hud-header">
             <div class="diner-avatar">${profile.emoji}</div>
             <div class="diner-info">
-                <div class="diner-name">${profile.name}</div>
-                <div class="diner-target">Target: ${targets.target_kcal} kcal</div>
+                <div class="diner-name">${profile[`name_${gameState.language}`]}</div>
+                <div class="diner-target">${t.target_prefix} ${targets.target_kcal} kcal</div>
             </div>
             <div class="info-toggle">ℹ️</div>
         </div>
-        <div class="tooltip-drawer ${isTooltipVisible ? 'show' : ''}">${profile.description}</div>
+        <div class="tooltip-drawer ${isTooltipVisible ? 'show' : ''}">${profile[`description_${gameState.language}`]}</div>
 
         <div class="macro-bars">
             <div class="bar-container" style="flex-grow: ${profile.pct_carbs}">
@@ -62,21 +65,21 @@ export function updateHUD(container, gameState, ghost = null, initialRender = fa
                     <div class="fill" style="width: ${carbsCurrentWidth}%"></div>
                     ${ghostCarbs}
                 </div>
-                <div class="bar-caption">CARBS</div>
+                <div class="bar-caption">${t.carbs}</div>
             </div>
             <div class="bar-container" style="flex-grow: ${profile.pct_protein}">
                 <div class="bar protein ${current.protein_g > targets.protein_g ? 'over' : ''}">
                     <div class="fill" style="width: ${proteinCurrentWidth}%"></div>
                     ${ghostProtein}
                 </div>
-                <div class="bar-caption">PROTEIN</div>
+                <div class="bar-caption">${t.protein}</div>
             </div>
             <div class="bar-container" style="flex-grow: ${profile.pct_fats}">
                 <div class="bar fats ${current.fats_g > targets.fats_g ? 'over' : ''}">
                     <div class="fill" style="width: ${fatsCurrentWidth}%"></div>
                     ${ghostFats}
                 </div>
-                <div class="bar-caption">FATS</div>
+                <div class="bar-caption">${t.fats}</div>
             </div>
         </div>
         <div class="eco-bars">
@@ -85,14 +88,14 @@ export function updateHUD(container, gameState, ghost = null, initialRender = fa
                     <div class="fill" style="width: ${waterCurrentWidth}%; right: 0;"></div>
                     ${ghostWater}
                 </div>
-                <div class="bar-caption">WATER RESOURCE</div>
+                <div class="bar-caption">${t.water}${t.resource}</div>
             </div>
             <div class="bar-container">
                 <div class="bar land ${current.land_m2 > targets.land_budget_m2 ? 'over' : ''}">
                     <div class="fill" style="width: ${landCurrentWidth}%; right: 0;"></div>
                     ${ghostLand}
                 </div>
-                <div class="bar-caption">LAND RESOURCE</div>
+                <div class="bar-caption">${t.land}${t.resource}</div>
             </div>
         </div>
     `;

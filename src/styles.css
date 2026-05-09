@@ -83,6 +83,32 @@ body {
     box-shadow: 0 4px 8px rgba(76, 175, 80, 0.2);
 }
 
+.language-switcher {
+    position: absolute;
+    bottom: 1rem;
+    right: 1rem;
+    display: flex;
+    background: rgba(255,255,255,0.5);
+    border-radius: 99px;
+    padding: 0.25rem;
+}
+
+.language-switcher button {
+    background: transparent;
+    border: none;
+    padding: 0.5rem 1rem;
+    cursor: pointer;
+    color: #666;
+    font-weight: bold;
+}
+
+.language-switcher button.active {
+    background: white;
+    color: #4CAF50;
+    border-radius: 99px;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}
+
 /* HUD */
 .hud {
     padding: 1rem;

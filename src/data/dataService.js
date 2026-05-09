@@ -2,6 +2,7 @@
 let ingredients = [];
 let profiles = [];
 let documentaries = [];
+let i18n = {};
 
 let maxIngredientValues = {
     carbs_g: 0,
@@ -13,17 +14,17 @@ let maxIngredientValues = {
 };
 
 export function validateIngredient(ingredient) {
-    const required = ['id', 'name', 'emoji', 'serving_size_g', 'calories', 'carbs_g', 'fats_g', 'protein_g', 'water_l', 'land_m2'];
-    return required.every(key => ingredient.hasOwnProperty(key) && typeof ingredient[key] === 'number' || key === 'id' || key === 'name' || key === 'emoji');
+    const required = ['id', 'name_en', 'name_zh', 'emoji', 'serving_size_g', 'calories', 'carbs_g', 'fats_g', 'protein_g', 'water_l', 'land_m2'];
+    return required.every(key => ingredient.hasOwnProperty(key));
 }
 
 export function validateProfile(profile) {
-    const required = ['id', 'name', 'emoji', 'description', 'target_kcal', 'pct_carbs', 'pct_fats', 'pct_protein'];
+    const required = ['id', 'name_en', 'name_zh', 'emoji', 'description_en', 'description_zh', 'target_kcal', 'pct_carbs', 'pct_fats', 'pct_protein'];
     return required.every(key => profile.hasOwnProperty(key));
 }
 
 export function validateDocumentary(doc) {
-    const required = ['id', 'title', 'hook', 'image_url', 'trailer_url'];
+    const required = ['id', 'title_en', 'title_zh', 'hook_en', 'hook_zh', 'image_url', 'trailer_url'];
     return required.every(key => doc.hasOwnProperty(key));
 }
 
@@ -41,6 +42,10 @@ export async function loadData() {
         const documentariesResponse = await fetch('./data/documentaries.json');
         const rawDocumentaries = await documentariesResponse.json();
         documentaries = rawDocumentaries.filter(validateDocumentary);
+
+        const i18nResponse = await fetch('./data/i18n.json');
+        const i18nData = await i18nResponse.json();
+        i18n = i18nData[0]; // The data is nested in an array
     } catch (error) {
         console.error('Error loading data:', error);
     }
@@ -71,6 +76,10 @@ export function getDocumentaries() {
 
 export function getMaxIngredientValues() {
     return maxIngredientValues;
+}
+
+export function getTranslations(lang) {
+    return i18n[lang] || i18n['en'];
 }
 
 export function getRandomIngredient(exclude = null) {
