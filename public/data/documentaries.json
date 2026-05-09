@@ -5,7 +5,7 @@
     "title_zh": "Cowspiracy (畜牧業的陰謀)",
     "hook_en": "Reveals the shocking truth about the environmental impact of animal agriculture. See why your land and water bars overflowed.",
     "hook_zh": "揭示畜牧業對環境的驚人影響。睇下點解你嘅水資源同土地資源會用晒。",
-    "image_url": "src/assets/posters/cowspiracy.jpg",
+    "image_url": "./posters/cowspiracy.jpg",
     "trailer_url": "https://youtu.be/watch?v=7vpLVA0xNME"
   },
   {
@@ -14,7 +14,7 @@
     "title_zh": "Seaspiracy (海洋陰謀)",
     "hook_en": "Exposes the dark side of the fishing industry. Curious about the true cost of that seafood?",
     "hook_zh": "揭露漁業的黑暗面。食海鮮嘅的真正代價係咩？",
-    "image_url": "src/assets/posters/seaspiracy.jpg",
+    "image_url": "./posters/seaspiracy.jpg",
     "trailer_url": "https://youtu.be/watch?v=1Q5CXN7soQg"
   },
   {
@@ -23,7 +23,7 @@
     "title_zh": "The Game Changers (茹素的力量)",
     "hook_en": "Think you need meat for protein? Watch how plant-based diets actually enhance peak athletic performance.",
     "hook_zh": "Build 肌要食肉？睇下植物性飲食點樣提升頂尖運動員嘅表現。",
-    "image_url": "src/assets/posters/the_game_changers.jpg",
+    "image_url": "./posters/the_game_changers.jpg",
     "trailer_url": "https://youtu.be/watch?v=iSpglxHTJVM"
   },
   {
@@ -32,7 +32,7 @@
     "title_zh": "What the Health",
     "hook_en": "Uncover the secret to preventing and even reversing chronic diseases. Hint: It's heavily tied to saturated fats.",
     "hook_zh": "揭開預防甚至逆轉慢性病嘅秘密。原來同飽和脂肪有關？",
-    "image_url": "src/assets/posters/what_the_health.jpg",
+    "image_url": "./posters/what_the_health.jpg",
     "trailer_url": "https://youtu.be/watch?v=Jf44vLndiRM"
   },
   {
@@ -41,7 +41,7 @@
     "title_zh": "Forks Over Knives (刀叉下的秘密)",
     "hook_en": "Discover how a whole-food, plant-based diet can save your life and the planet.",
     "hook_zh": "一齊睇下「整全植物性飲食」(WFPB)點樣拯救我哋嘅生命同地球。",
-    "image_url": "src/assets/posters/forks_over_knives.jpg",
+    "image_url": "./posters/forks_over_knives.jpg",
     "trailer_url": "https://youtu.be/watch?v=O7ijukNzlUg"
   }
 ]
