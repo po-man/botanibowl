@@ -1,5 +1,5 @@
 // app.js - Main application logic
-import { loadData, preloadDocumentaryImages } from './data/dataService.js';
+import { loadData, preloadDocumentaryImages, getTranslations } from './data/dataService.js';
 import { GameState } from './logic/gameLogic.js';
 import { createMainMenu } from './components/mainMenu.js';
 import { createHUD, updateHUD } from './components/hud.js';
@@ -41,13 +41,41 @@ function showScreen(screen) {
 }
 
 function toggleLanguage(lang) {
+    if (gameState.language === lang) return; // Do nothing if language is already set
+
     gameState.setLanguage(lang);
-    showScreen(gameState.currentState); // Re-render the current screen with the new language
+
+    // If on the menu, update in-place to avoid resetting animations
+    if (gameState.currentState === 'MENU') {
+        const t = getTranslations(lang);
+        const startBtn = document.getElementById('start-btn');
+        if (startBtn) {
+            startBtn.textContent = t.serve_customer;
+        }
+        document.querySelectorAll('.language-switcher button').forEach(btn => {
+            btn.classList.toggle('active', btn.dataset.lang === lang);
+        });
+    } else {
+        // For other screens, a full re-render is necessary to update all text
+        showScreen(gameState.currentState);
+    }
 }
 
 function startGame() {
-    gameState.resetRound();
-    showScreen('GAMEPLAY');
+    const overlay = document.getElementById('screen-transition-overlay');
+    if (!overlay) {
+        // Fallback for safety
+        gameState.resetRound();
+        showScreen('GAMEPLAY');
+        return;
+    }
+
+    overlay.style.opacity = '1';
+    overlay.addEventListener('transitionend', () => {
+        gameState.resetRound();
+        showScreen('GAMEPLAY');
+        overlay.style.opacity = '0';
+    }, { once: true });
 }
 
 function setupGameplayScreen() {

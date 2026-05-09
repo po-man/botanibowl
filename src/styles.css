@@ -3,6 +3,7 @@
     box-sizing: border-box;
     margin: 0;
     padding: 0;
+    -webkit-tap-highlight-color: transparent; /* Disable tap highlight on mobile */
 }
 
 body {
@@ -81,7 +82,23 @@ body {
     transition: transform 0.2s ease, box-shadow 0.2s ease;
 }
 .main-menu #start-btn {
+    animation: float-button 2.5s ease-in-out infinite;
     line-height: 1; /* Normalize line height for consistent text positioning */
+}
+
+.main-menu #start-btn:active {
+    animation: none; /* Disable float animation on click */
+}
+
+@keyframes float-button {
+    0%, 100% {
+        transform: translateY(0);
+        box-shadow: 0 8px 16px rgba(76, 175, 80, 0.3);
+    }
+    50% {
+        transform: translateY(-6px);
+        box-shadow: 0 12px 24px rgba(76, 175, 80, 0.35);
+    }
 }
 
 .main-menu button:active {
@@ -360,6 +377,19 @@ body {
 @keyframes float {
     0%, 100% { transform: translateY(0); }
     50% { transform: translateY(-8px); }
+}
+
+.screen-transition-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background-color: #fdfdfd;
+    opacity: 0;
+    pointer-events: none;
+    z-index: 9999;
+    transition: opacity 0.4s ease-in-out;
 }
 
 .card-info {
