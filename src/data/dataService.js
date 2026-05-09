@@ -110,3 +110,13 @@ export function getRandomProfile() {
     const index = Math.floor(Math.random() * profiles.length);
     return profiles[index];
 }
+
+export function preloadDocumentaryImages() {
+    if (!documentaries || documentaries.length === 0) return;
+    documentaries.forEach(doc => {
+        if (doc.image_url) {
+            const img = new Image();
+            img.src = doc.image_url;
+        }
+    });
+}

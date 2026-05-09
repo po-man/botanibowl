@@ -1,5 +1,5 @@
 // app.js - Main application logic
-import { loadData } from './data/dataService.js';
+import { loadData, preloadDocumentaryImages } from './data/dataService.js';
 import { GameState } from './logic/gameLogic.js';
 import { createMainMenu } from './components/mainMenu.js';
 import { createHUD, updateHUD } from './components/hud.js';
@@ -17,6 +17,7 @@ export async function initApp() {
     await loadData();
     gameState = new GameState();
     showScreen('MENU');
+    preloadDocumentaryImages();
 }
 
 function showScreen(screen) {
