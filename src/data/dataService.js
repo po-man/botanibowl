@@ -13,6 +13,9 @@ let maxIngredientValues = {
     land_m2: 0
 };
 
+// Tunable factor for ingredient weighting. 0 = uniform, >1 = favors high-macro ingredients.
+const MACRO_WEIGHTING_FACTOR = 0.8;
+
 export function validateIngredient(ingredient) {
     const required = ['id', 'name_en', 'name_zh', 'emoji', 'serving_size_g', 'calories', 'carbs_g', 'fats_g', 'protein_g', 'water_l', 'land_m2'];
     return required.every(key => ingredient.hasOwnProperty(key));
@@ -113,25 +116,36 @@ export function getRandomIngredient(cardsDrawn, hasDrawnAnimal, hasDrawnPlant, e
         ingredientPool = ingredients;
     }
 
-    // Standard random selection from the (potentially filtered) pool
+    // Weighted random selection from the (potentially filtered) pool
     let randomIngredient;
+    let attempts = 0;
     do {
-        if (forceType === null) {
-            // Default behavior: balanced selection by category
-            const categories = [...new Set(ingredientPool.map(ing => ing.category))];
-            const randomCategory = categories[Math.floor(Math.random() * categories.length)];
-            const categoryIngredients = ingredientPool.filter(ing => ing.category === randomCategory);
-            const index = Math.floor(Math.random() * categoryIngredients.length);
-            randomIngredient = categoryIngredients[index];
-        } else {
-            // Forced behavior: pick any from the filtered pool
-            const index = Math.floor(Math.random() * ingredientPool.length);
-            randomIngredient = ingredientPool[index];
+        const weights = ingredientPool.map(ing => {
+            // Calculate a "macro score" for weighting. Add a small epsilon to avoid Math.pow(0, ...) issues.
+            const macroScore = ing.carbs_g + ing.protein_g + ing.fats_g + 0.01;
+            return Math.pow(macroScore, MACRO_WEIGHTING_FACTOR);
+        });
+
+        const totalWeight = weights.reduce((sum, weight) => sum + weight, 0);
+        let randomValue = Math.random() * totalWeight;
+
+        for (let i = 0; i < ingredientPool.length; i++) {
+            randomValue -= weights[i];
+            if (randomValue <= 0) {
+                randomIngredient = ingredientPool[i];
+                break;
+            }
         }
-    } while (exclude && randomIngredient.id === exclude.id && ingredients.length > 1);
+
+        // Fallback for the rare case where the loop finishes without selecting (floating point issues)
+        if (!randomIngredient) {
+            randomIngredient = ingredientPool[Math.floor(Math.random() * ingredientPool.length)];
+        }
+        attempts++;
+    } while (exclude && randomIngredient.id === exclude.id && ingredientPool.length > 1 && attempts < 10);
 
     // Final check to prevent infinite loops if the pool is very small
-    if (exclude && randomIngredient.id === exclude.id && ingredients.length <= 1) {
+    if (exclude && randomIngredient.id === exclude.id && ingredientPool.length <= 1) {
         return randomIngredient;
     }
     return randomIngredient;
