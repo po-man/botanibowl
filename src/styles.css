@@ -26,22 +26,47 @@ body {
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    background: linear-gradient(to bottom, #4CAF50, #8D6E63);
-    color: white;
+    background-color: #fdfdfd;
+    background-image:
+        radial-gradient(at 0% 0%, rgba(76, 175, 80, 0.3) 0px, transparent 50%),
+        radial-gradient(at 100% 0%, rgba(255, 215, 0, 0.15) 0px, transparent 50%),
+        radial-gradient(at 100% 100%, rgba(141, 110, 99, 0.25) 0px, transparent 50%),
+        radial-gradient(at 0% 100%, rgba(0, 191, 255, 0.15) 0px, transparent 50%);
+    background-size: 150% 150%;
+    animation: mesh-movement 15s ease-in-out infinite alternate;
+    color: #333;
+}
+
+@keyframes mesh-movement {
+    0% { background-position: 0% 0%; }
+    100% { background-position: 100% 100%; }
 }
 
 .main-menu h1 {
-    font-size: 3rem;
+    font-size: 3.5rem;
     margin-bottom: 2rem;
+    font-weight: 800;
+    letter-spacing: -1px;
+    color: #2E7D32;
+    text-shadow: 0 4px 12px rgba(0,0,0,0.05);
 }
 
 .main-menu button {
-    padding: 1rem 2rem;
-    font-size: 1.5rem;
-    background: white;
+    padding: 1rem 2.5rem;
+    font-size: 1.25rem;
+    font-weight: bold;
+    background: #4CAF50;
+    color: white;
     border: none;
-    border-radius: 0.5rem;
+    border-radius: 99px;
     cursor: pointer;
+    box-shadow: 0 8px 16px rgba(76, 175, 80, 0.3);
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.main-menu button:active {
+    transform: scale(0.96);
+    box-shadow: 0 4px 8px rgba(76, 175, 80, 0.2);
 }
 
 /* HUD */
@@ -460,21 +485,23 @@ body {
     50% { background-color: #4CAF50; }
 }
 
-
 .results-screen {
     flex: 1;
     padding: 1rem;
     display: flex;
     flex-direction: column;
     align-items: center;
-    background: linear-gradient(to bottom, #4CAF50, #8D6E63);
+    background-color: #f7f6f2;
+    background-image: radial-gradient(rgba(141, 110, 99, 0.1) 1px, transparent 1px);
+    background-size: 16px 16px; 
 }
 
 .results-card {
     background: white;
-    border-radius: 10px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-    padding: 1rem;
+    border-radius: 16px;
+    box-shadow: 0 12px 32px rgba(0, 0, 0, 0.08), 0 2px 8px rgba(0, 0, 0, 0.03);
+    border: 1px solid rgba(0,0,0,0.04);
+    padding: 1.5rem;
     max-width: 400px;
     width: 100%;
     display: flex;
