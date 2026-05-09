@@ -82,26 +82,58 @@ export function getTranslations(lang) {
     return i18n[lang] || i18n['en'];
 }
 
-export function getRandomIngredient(exclude = null) {
+export function isAnimal(ingredient) {
+    if (!ingredient) return false;
+    // Milk is categorized as a Drink but is an animal product.
+    return ingredient.category === 'Animal-Based' || ingredient.id === 'milk';
+}
+
+export function getRandomIngredient(cardsDrawn, hasDrawnAnimal, hasDrawnPlant, exclude = null) {
     if (ingredients.length === 0) return null;
 
-    // 1. Group ingredients by category
-    const categories = [...new Set(ingredients.map(ing => ing.category))];
+    let forceType = null;
+    // In the first 3 cards (0, 1, 2), ensure a mix of plant and animal products.
+    if (cardsDrawn < 3) {
+        if (cardsDrawn === 2) { // This is the 3rd card being drawn
+            if (!hasDrawnAnimal) forceType = 'animal';
+            else if (!hasDrawnPlant) forceType = 'plant';
+        }
+    }
 
+    let ingredientPool = ingredients;
+
+    if (forceType === 'animal') {
+        ingredientPool = ingredients.filter(isAnimal);
+    } else if (forceType === 'plant') {
+        ingredientPool = ingredients.filter(ing => !isAnimal(ing));
+    }
+
+    // Fallback if the forced pool is empty for some reason
+    if (ingredientPool.length === 0) {
+        ingredientPool = ingredients;
+    }
+
+    // Standard random selection from the (potentially filtered) pool
     let randomIngredient;
     do {
-        // 2. Sample a random category
-        const randomCategory = categories[Math.floor(Math.random() * categories.length)];
-
-        // 3. Filter ingredients by that category
-        const categoryIngredients = ingredients.filter(ing => ing.category === randomCategory);
-
-        // 4. Sample an ingredient from the chosen category
-        const index = Math.floor(Math.random() * categoryIngredients.length);
-        randomIngredient = categoryIngredients[index];
-
+        if (forceType === null) {
+            // Default behavior: balanced selection by category
+            const categories = [...new Set(ingredientPool.map(ing => ing.category))];
+            const randomCategory = categories[Math.floor(Math.random() * categories.length)];
+            const categoryIngredients = ingredientPool.filter(ing => ing.category === randomCategory);
+            const index = Math.floor(Math.random() * categoryIngredients.length);
+            randomIngredient = categoryIngredients[index];
+        } else {
+            // Forced behavior: pick any from the filtered pool
+            const index = Math.floor(Math.random() * ingredientPool.length);
+            randomIngredient = ingredientPool[index];
+        }
     } while (exclude && randomIngredient.id === exclude.id && ingredients.length > 1);
 
+    // Final check to prevent infinite loops if the pool is very small
+    if (exclude && randomIngredient.id === exclude.id && ingredients.length <= 1) {
+        return randomIngredient;
+    }
     return randomIngredient;
 }
 

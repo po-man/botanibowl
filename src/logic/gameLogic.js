@@ -1,5 +1,5 @@
 // gameLogic.js - Core game logic and calculations
-import { getRandomIngredient, getRandomProfile, getDocumentaries, getTranslations } from '../data/dataService.js';
+import { getRandomIngredient, getRandomProfile, getDocumentaries, getTranslations, isAnimal } from '../data/dataService.js';
 
 export class GameState {
     constructor() {
@@ -20,6 +20,9 @@ export class GameState {
         this.currentCard = null;
         this.nextCard = null;
         this.tutorialCompleted = false;
+        this.cardsDrawn = 0;
+        this.hasDrawnAnimal = false;
+        this.hasDrawnPlant = false;
     }
 
     setLanguage(lang) {
@@ -39,8 +42,21 @@ export class GameState {
             land_m2: 0
         };
         this.bowl = [];
-        this.currentCard = getRandomIngredient();
-        this.nextCard = getRandomIngredient(this.currentCard);
+        this.cardsDrawn = 0;
+        this.hasDrawnAnimal = false;
+        this.hasDrawnPlant = false;
+
+        // Get the first two cards with special logic
+        this.currentCard = this.getNextIngredient();
+        this.nextCard = this.getNextIngredient(this.currentCard);
+    }
+
+    getNextIngredient(exclude = null) {
+        const ingredient = getRandomIngredient(this.cardsDrawn, this.hasDrawnAnimal, this.hasDrawnPlant, exclude);
+        this.cardsDrawn++;
+        if (isAnimal(ingredient)) this.hasDrawnAnimal = true;
+        else this.hasDrawnPlant = true;
+        return ingredient;
     }
 
     addIngredient(ingredient) {
@@ -76,7 +92,7 @@ export class GameState {
 
     advanceCard() {
         this.currentCard = this.nextCard;
-        this.nextCard = getRandomIngredient(this.currentCard);
+        this.nextCard = this.getNextIngredient(this.currentCard);
     }
 
     completeTutorial() {
