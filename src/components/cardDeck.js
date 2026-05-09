@@ -15,6 +15,16 @@ export function updateCardDeck(container, gameState) {
     const t = getTranslations(gameState.language);
     if (!card || !nextCard) return;
 
+    const getSpecialRemark = (ingredient) => {
+        if (ingredient.category.includes('Antioxidant-Rich')) {
+            return `<div class="special-remark">${t.rich_in_antioxidants}</div>`;
+        }
+        if (ingredient.category.includes('Vitamin C')) {
+            return `<div class="special-remark">${t.rich_in_vitamin_c}</div>`;
+        }
+        return '';
+    };
+
     const maxValues = getMaxIngredientValues();
     const currentCardRadar = createRadarChartSVG(card, maxValues);
     const nextCardRadar = createRadarChartSVG(nextCard, maxValues);
@@ -42,6 +52,7 @@ export function updateCardDeck(container, gameState) {
                         <div class="name">${nextCard[`name_${gameState.language}`]}</div>
                         <div class="serving">${nextCard.serving_size_g}g</div>
                     </div>
+                    ${getSpecialRemark(nextCard)}
                 </div>
             </div>
             <div class="card current-card">
@@ -52,6 +63,7 @@ export function updateCardDeck(container, gameState) {
                         <div class="name">${card[`name_${gameState.language}`]}</div>
                         <div class="serving">${card.serving_size_g}g</div>
                     </div>
+                    ${getSpecialRemark(card)}
                 </div>
             </div>
         </div>

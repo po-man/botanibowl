@@ -368,6 +368,7 @@ body {
     width: 100%;
     padding: 0 1rem;
     justify-content: center;
+    flex-wrap: wrap; /* Allow wrapping for the special remark */
     gap: 1rem;
 }
 
@@ -390,6 +391,16 @@ body {
 .card .serving {
     font-size: 1.5em;
     color: #666;
+}
+
+.special-remark {
+    width: 100%;
+    text-align: center;
+    font-size: 1.1em;
+    font-weight: 500;
+    color: #2E7D32; /* Use a nice green color */
+    margin-top: 0.5rem;
+    flex-basis: 100%; /* Ensure it takes full width */
 }
 
 /* Radar Chart */

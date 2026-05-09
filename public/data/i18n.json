@@ -25,7 +25,9 @@
       "feedback_perfect": "Absolutely brilliant. You hit my macros perfectly, kept my heart healthy, and didn't destroy the planet doing it. A masterclass in sustainable nutrition!",
       "feedback_fallback_animal": "Not a bad bowl, but it could be optimized. We can easily make this healthier and more sustainable by swapping some of those animal products for whole plant foods next time.",
       "feedback_fallback_plant": "A decent plant-based attempt! The macros were a little bit off my exact targets, but I really appreciate the eco-friendly choices.",
-      "feedback_high_chicken": "While chicken seems like a lean choice, its production has hidden ethical and environmental costs."
+      "feedback_high_chicken": "While chicken seems like a lean choice, its production has hidden ethical and environmental costs.",
+      "rich_in_antioxidants": "Rich in Antioxidants",
+      "rich_in_vitamin_c": "Rich in Vitamin C"
     },
     "zh": {
       "serve_customer": "招呼客人",
@@ -52,7 +54,9 @@
       "feedback_perfect": "正呀！你完美地達到了我嘅 Macro 營養目標，保住我心臟健康，又冇點破壞地球。簡直係可持續營養嘅典範！",
       "feedback_fallback_animal": "呢餐算唔錯啦，但可以再好啲。下次我哋不如用全植物飲食替代替動物產品，可以食得更健康、更可持續。",
       "feedback_fallback_plant": "一次唔錯嘅植物性嘗試！Marco 營養素同我的目標有少少偏差，但我欣賞你為環保做嘅選擇。",
-      "feedback_high_chicken": "雖然雞肉睇落係一個健康嘅選擇，但佢嘅生產過程背後隱藏住道德同環境代價。"
+      "feedback_high_chicken": "雖然雞肉睇落係一個健康嘅選擇，但佢嘅生產過程背後隱藏住道德同環境代價。",
+      "rich_in_antioxidants": "含豐富抗氧化物",
+      "rich_in_vitamin_c": "含豐富維他命C"
     }
   }
 ]
