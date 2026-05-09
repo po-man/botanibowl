@@ -77,6 +77,9 @@ body {
     box-shadow: 0 8px 16px rgba(76, 175, 80, 0.3);
     transition: transform 0.2s ease, box-shadow 0.2s ease;
 }
+.main-menu #start-btn {
+    line-height: 1; /* Normalize line height for consistent text positioning */
+}
 
 .main-menu button:active {
     transform: scale(0.96);
