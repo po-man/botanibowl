@@ -378,18 +378,18 @@ body {
 }
 
 .card .emoji {
-    font-size: 6em;
+    font-size: 4em;
     margin-bottom: 0; /* Removed margin */
 }
 
 .card .name {
     font-weight: bold;
-    font-size: 2em;
+    font-size: 1.5em;
     margin-bottom: 0.25rem; /* Reduced margin */
 }
 
 .card .serving {
-    font-size: 1.5em;
+    font-size: 1.2em;
     color: #666;
 }
 
@@ -404,9 +404,10 @@ body {
 }
 
 /* Radar Chart */
+/* Find this block in your styles.css and update the height */
 .radar-chart-container {
     width: 100%;
-    height: 60%; /* Use em for proportional height */
+    height: 60%; /* Reduced from 60% to give text more breathing room */
     display: flex;
     justify-content: center;
     align-items: center;

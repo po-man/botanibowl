@@ -180,16 +180,30 @@ function resizeCard() {
     const bowlHeight = bowl.offsetHeight;
     const availableHeight = window.innerHeight - hudHeight - bowlHeight;
 
-    const cardHeight = availableHeight * 0.9;
-    const cardAspectRatio = 300 / 400; // From original CSS width/height
-    const cardWidth = cardHeight * cardAspectRatio;
+    // 1. Set maximum allowed boundaries (increased width slightly to 85% for better mobile fit)
+    const maxCardHeight = availableHeight * 0.9;
+    const maxCardWidth = window.innerWidth * 0.85;
+    const cardAspectRatio = 300 / 400; // Target aspect ratio (width/height = 0.75)
 
-    cardStack.style.height = `${cardHeight}px`;
-    cardStack.style.width = `${Math.min(cardWidth, window.innerWidth * 0.8)}px`;
+    // 2. Initial calculation based on available vertical space
+    let finalHeight = maxCardHeight;
+    let finalWidth = finalHeight * cardAspectRatio;
 
-    // Set a scalable base font size for the card's content.
-    // 40 is a "magic number" derived from the original fixed height (400px) and a base font size of 10px.
-    cardStack.style.fontSize = `${cardHeight / 40}px`;
+    // 3. Constrain by width IF the calculated width exceeds screen bounds
+    // This prevents the card from stretching vertically and inflating the fonts!
+    if (finalWidth > maxCardWidth) {
+        finalWidth = maxCardWidth;
+        finalHeight = finalWidth / cardAspectRatio; // Scale height down proportionately
+    }
+
+    cardStack.style.height = `${finalHeight}px`;
+    cardStack.style.width = `${finalWidth}px`;
+
+    // 4. Calculate a scalable font size with a readability floor
+    // Dividing by 35 gives a slightly more generous baseline than 40.
+    // clamp() ensures it never drops below 11px on tiny screens (like SE) or balloons on huge screens.
+    const baseFontSize = finalHeight / 35;
+    cardStack.style.fontSize = `clamp(11px, ${baseFontSize}px, 18px)`;
 }
 
 function serveMeal() {
