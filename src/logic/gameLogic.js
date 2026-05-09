@@ -115,6 +115,12 @@ export class GameState {
         let healthFlag = false;
         let ecoFlag = false;
 
+        // Custom Chicken Check
+        const chickenCount = this.bowl.filter(ing => ing.id === 'chicken').length;
+        if (chickenCount > 1) {
+            feedback.push(t.feedback_high_chicken);
+        }
+
         // 1. Health Checks
         if (this.current.sat_fats_g > satFatLimit) {
             feedback.push(t.feedback_sat_fat);
@@ -172,10 +178,16 @@ export class GameState {
         const highLand = this.current.land_m2 > this.targets.land_budget_m2;
         const highWater = this.current.water_l > this.targets.water_budget_l;
 
+        const chickenCount = this.bowl.filter(ing => ing.id === 'chicken').length;
         const hasSeafood = this.bowl.some(ing => ing.id === 'fish' || ing.id === 'prawns');
         const animalProductsCount = this.bowl.filter(i => i.category === 'Animal-Based').length;
 
         const goodProtein = this.current.protein_g >= this.targets.protein_g * 0.85;
+
+        // 0. High-priority Chicken check
+        if (chickenCount > 1) {
+            return docs.find(d => d.id === 'the_chicken_whisperer') || docs[0];
+        }
 
         // 1. Eco Violations -> Cowspiracy
         if (highLand || highWater) {

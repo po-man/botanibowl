@@ -43,5 +43,15 @@
     "hook_zh": "一齊睇下「整全植物性飲食」(WFPB)點樣拯救我哋嘅生命同地球。",
     "image_url": "./posters/forks_over_knives.jpg",
     "trailer_url": "https://youtu.be/watch?v=O7ijukNzlUg"
+  },
+  {
+    "id": "the_chicken_whisperer",
+    "title_en": "The Chicken Whisperer",
+    "title_zh": "The Chicken Whisperer",
+    "hook_en": "Chickens are more than just a meal. This film reveals the individuality and sentience of the world's most exploited land animal.",
+    "hook_zh": "呢部短片話我哋知：世界上被剝削得最嚴重的陸上動物，每隻都係有自己個性嘅獨立個體。",
+    "image_url": "./posters/the_chicken_whisperer.jpg",
+    "trailer_url": "https://youtu.be/watch?v=OKEwKi6ccIc"
+
   }
 ]
