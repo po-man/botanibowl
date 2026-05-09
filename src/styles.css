@@ -28,18 +28,21 @@ body {
     align-items: center;
     background-color: #fdfdfd;
     background-image:
-        radial-gradient(at 0% 0%, rgba(76, 175, 80, 0.3) 0px, transparent 50%),
-        radial-gradient(at 100% 0%, rgba(255, 215, 0, 0.15) 0px, transparent 50%),
-        radial-gradient(at 100% 100%, rgba(141, 110, 99, 0.25) 0px, transparent 50%),
-        radial-gradient(at 0% 100%, rgba(0, 191, 255, 0.15) 0px, transparent 50%);
-    background-size: 150% 150%;
-    animation: mesh-movement 15s ease-in-out infinite alternate;
+        radial-gradient(at 0% 0%, hsla(122, 39%, 50%, 0.3) 0px, transparent 50%),
+        radial-gradient(at 100% 0%, hsla(51, 100%, 50%, 0.15) 0px, transparent 50%),
+        radial-gradient(at 100% 100%, hsla(20, 18%, 45%, 0.25) 0px, transparent 50%),
+        radial-gradient(at 0% 100%, hsla(195, 100%, 50%, 0.15) 0px, transparent 50%);
+    background-size: 200% 200%;
+    animation: mesh-movement 8s ease-in-out infinite alternate;
     color: #333;
 }
 
 @keyframes mesh-movement {
     0% { background-position: 0% 0%; }
-    100% { background-position: 100% 100%; }
+    25% { background-position: 100% 0%; }
+    50% { background-position: 100% 100%; }
+    75% { background-position: 0% 100%; }
+    100% { background-position: 0% 0%; }
 }
 
 .main-menu .title-container {
@@ -270,6 +273,14 @@ body {
     justify-content: center;
     align-items: center;
     position: relative;
+    background-color: #fdfdfd;
+    background-image:
+        radial-gradient(at 0% 0%, hsla(122, 39%, 50%, 0.3) 0px, transparent 50%),
+        radial-gradient(at 100% 0%, hsla(51, 100%, 50%, 0.15) 0px, transparent 50%),
+        radial-gradient(at 100% 100%, hsla(20, 18%, 45%, 0.25) 0px, transparent 50%),
+        radial-gradient(at 0% 100%, hsla(195, 100%, 50%, 0.15) 0px, transparent 50%);
+    background-size: 200% 200%;
+    animation: mesh-movement 8s ease-in-out infinite alternate;
 }
 
 .card-stack {
@@ -534,9 +545,14 @@ body {
     display: flex;
     flex-direction: column;
     align-items: center;
-    background-color: #f7f6f2;
-    background-image: radial-gradient(rgba(141, 110, 99, 0.1) 1px, transparent 1px);
-    background-size: 16px 16px; 
+    background-color: #fdfdfd;
+    background-image:
+        radial-gradient(at 0% 0%, hsla(122, 39%, 50%, 0.3) 0px, transparent 50%),
+        radial-gradient(at 100% 0%, hsla(51, 100%, 50%, 0.15) 0px, transparent 50%),
+        radial-gradient(at 100% 100%, hsla(20, 18%, 45%, 0.25) 0px, transparent 50%),
+        radial-gradient(at 0% 100%, hsla(195, 100%, 50%, 0.15) 0px, transparent 50%);
+    background-size: 200% 200%;
+    animation: mesh-movement 8s ease-in-out infinite alternate;
 }
 
 .results-card {
