@@ -455,13 +455,13 @@
         "name_en": "Chocolate Bar",
         "name_zh": "朱古力",
         "serving_size_g": 30.0,
-        "carbs_g": 21.9,
-        "protein_g": 1.53,
-        "fats_g": 4.05,
-        "sat_fats_g": 1.57,
+        "carbs_g": 13.77,
+        "protein_g": 2.34,
+        "fats_g": 12.79,
+        "sat_fats_g": 7.35,
         "water_l": 16.22,
         "land_m2": 2.07,
-        "calories": 130.17,
+        "calories": 179.53,
         "id": "chocolate_bar"
     },
     {
