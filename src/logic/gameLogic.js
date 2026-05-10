@@ -147,9 +147,9 @@ export class GameState {
         }
 
         // 3. Perfect Score Check
-        const carbsInRange = Math.abs(this.current.carbs_g - this.targets.carbs_g) <= this.targets.carbs_g * 0.15;
-        const fatsInRange = Math.abs(this.current.fats_g - this.targets.fats_g) <= this.targets.fats_g * 0.15;
-        const proteinInRange = Math.abs(this.current.protein_g - this.targets.protein_g) <= this.targets.protein_g * 0.15;
+        const carbsInRange = Math.abs(this.current.carbs_g - this.targets.carbs_g) <= this.targets.carbs_g * 0.10;
+        const fatsInRange = Math.abs(this.current.fats_g - this.targets.fats_g) <= this.targets.fats_g * 0.10;
+        const proteinInRange = Math.abs(this.current.protein_g - this.targets.protein_g) <= this.targets.protein_g * 0.10;
 
         if (carbsInRange && fatsInRange && proteinInRange && !healthFlag && !ecoFlag) {
             return t.feedback_perfect;
