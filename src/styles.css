@@ -433,6 +433,10 @@ body {
     flex-basis: 100%; /* Ensure it takes full width */
 }
 
+.special-remark.warning {
+    color: #D32F2F;
+}
+
 /* Radar Chart */
 /* Find this block in your styles.css and update the height */
 .radar-chart-container {

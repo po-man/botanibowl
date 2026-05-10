@@ -28,7 +28,8 @@
       "feedback_fallback_plant": "A decent plant-based attempt! The macros were a little bit off my exact targets, but I really appreciate the eco-friendly choices.",
       "feedback_high_chicken": "While chicken seems like a lean choice, its production has hidden ethical and environmental costs.",
       "rich_in_antioxidants": "Rich in Antioxidants",
-      "rich_in_vitamin_c": "Rich in Vitamin C"
+      "rich_in_vitamin_c": "Rich in Vitamin C",
+      "high_in_sat_fat": "High in Saturated Fat"
     },
     "zh": {
       "serve_customer": "招呼客人",
@@ -58,7 +59,8 @@
       "feedback_fallback_plant": "一次唔錯嘅植物性嘗試！Marco 營養素同我的目標有少少偏差，但我欣賞你為環保做嘅選擇。",
       "feedback_high_chicken": "雖然雞肉睇落係一個健康嘅選擇，但佢嘅生產過程背後隱藏住道德同環境代價。",
       "rich_in_antioxidants": "含豐富抗氧化物",
-      "rich_in_vitamin_c": "含豐富維他命C"
+      "rich_in_vitamin_c": "含豐富維他命C",
+      "high_in_sat_fat": "高飽和脂肪"
     }
   }
 ]

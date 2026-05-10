@@ -23,6 +23,13 @@ export function updateCardDeck(container, gameState) {
     };
 
     const getSpecialRemark = (ingredient) => {
+        // Priority warning for saturated fats.
+        const isHighSatFatByWeight = ingredient.sat_fats_g > 0 && (ingredient.sat_fats_g / ingredient.serving_size_g) > 0.05;
+        const isHighSatFatByRatio = ingredient.fats_g > 0 && (ingredient.sat_fats_g / ingredient.fats_g) > 0.33;
+        if (isHighSatFatByWeight && isHighSatFatByRatio) {
+            return `<div class="special-remark warning">${t.high_in_sat_fat}</div>`;
+        }
+        // Positive remarks
         if (ingredient.category.includes('Antioxidant-Rich')) {
             return `<div class="special-remark">${t.rich_in_antioxidants}</div>`;
         }
