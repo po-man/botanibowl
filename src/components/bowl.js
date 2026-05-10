@@ -16,8 +16,22 @@ export function updateBowl(container, gameState, onServeMeal, onRemoveIngredient
 
     const buttonClasses = [isFull ? 'shine' : '', !hasIngredients ? 'disabled' : ''].filter(Boolean).join(' ');
 
+    let hintHTML = '';
+    if (hasIngredients && !gameState.bowlTutorialCompleted) {
+        const hintText = t.bowl_hint;
+        if (gameState.bowl.length <= 3) {
+            hintHTML = `<div class="bowl-hint">${hintText}</div>`;
+        } else if (gameState.bowl.length === 4) {
+            hintHTML = `<div class="bowl-hint fade-out">${hintText}</div>`;
+            gameState.bowlTutorialCompleted = true;
+        }
+    }
+
     container.innerHTML = `
-        <div class="ingredients">${bowlHTML}</div>
+        <div class="ingredients">
+            ${bowlHTML}
+            ${hintHTML}
+        </div>
         <div class="bowl-actions">
             <button id="serve-btn" class="${buttonClasses}" ${hasIngredients ? '' : 'disabled'}>${t.serve_meal}</button>
         </div>
@@ -84,6 +98,12 @@ export function updateBowl(container, gameState, onServeMeal, onRemoveIngredient
 
     if (ingredientsContainer) {
         ingredientsContainer.addEventListener('touchstart', (event) => {
+            if (!gameState.bowlTutorialCompleted) {
+                gameState.bowlTutorialCompleted = true;
+                const hintEl = container.querySelector('.bowl-hint');
+                if (hintEl) hintEl.remove();
+            }
+
             const touch = event.touches[0];
             if (!touch) return;
             const target = event.target.closest('.ingredient');

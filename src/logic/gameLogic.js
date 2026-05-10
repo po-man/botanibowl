@@ -20,6 +20,7 @@ export class GameState {
         this.currentCard = null;
         this.nextCard = null;
         this.tutorialCompleted = false;
+        this.bowlTutorialCompleted = false;
         this.cardsDrawn = 0;
         this.hasDrawnAnimal = false;
         this.hasDrawnPlant = false;
