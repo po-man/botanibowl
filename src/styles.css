@@ -48,7 +48,7 @@ body {
 
 .main-menu .title-container {
     text-align: center;
-    margin-bottom: 3rem;
+    margin-bottom: 1.5rem;
 }
 
 .main-menu h1 {
@@ -779,4 +779,83 @@ body {
 
 .card.type-legumes {
     border-color: #ecddc1;
+}
+
+.hero-illustration {
+    position: relative;
+    width: 100%;
+    max-width: 320px;
+    height: 240px;
+    margin: 0 auto 2.5rem auto;
+    display: flex;
+    justify-content: center;
+    align-items: flex-end;
+    z-index: 1;
+}
+
+.hero-boy {
+    height: 100%;
+    position: relative;
+    z-index: 2; /* Sits behind the veggies */
+}
+
+.hero-veg {
+    position: absolute;
+    z-index: 3; /* Sits in front of the boy */
+    filter: drop-shadow(0 8px 12px rgba(0,0,0,0.15));
+    --rot: 0deg;
+    animation: float-veg 3s ease-in-out infinite alternate;
+}
+
+/* Specific sizing, positioning, and animation timings for each item */
+.veg-tomato {
+    width: 65px;
+    bottom: 10px;
+    left: 20px;
+    --rot: -5deg;
+    animation-duration: 3.2s;
+}
+
+.veg-carrot {
+    width: 55px;
+    bottom: 50px;
+    left: 45px;
+    --rot: -20deg;
+    animation-duration: 2.8s;
+    animation-direction: alternate-reverse; /* Staggers the floating direction */
+}
+
+.veg-broccoli {
+    width: 45px;
+    bottom: 0px;
+    left: 110px;
+    --rot: -10deg;
+    animation-duration: 3.5s;
+}
+
+.veg-orange {
+    width: 55px;
+    bottom: 15px;
+    right: 90px;
+    --rot: 5deg;
+    animation-duration: 3.1s;
+    animation-direction: alternate-reverse;
+}
+
+.veg-eggplant {
+    width: 80px;
+    bottom: 15px;
+    right: 15px;
+    --rot: 15deg;
+    animation-duration: 4s;
+}
+
+/* The floating keyframe animation */
+@keyframes float-veg {
+    0% {
+        transform: translateY(0px) rotate(var(--rot));
+    }
+    100% {
+        transform: translateY(-12px) rotate(var(--rot));
+    }
 }
