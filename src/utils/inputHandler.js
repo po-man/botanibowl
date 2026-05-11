@@ -15,7 +15,7 @@ export function setupCardGestures(cardElement, onSwipeLeft, onSwipeRight, onDrag
         const deltaX = ev.deltaX;
         const deltaY = ev.deltaY;
         cardElement.style.transform = ''; // Reset transform
-        if (Math.abs(deltaX) > 50 && Math.abs(deltaY) < 50) {
+        if (Math.abs(deltaX) > 20 && Math.abs(deltaY) < 50) {
             if (deltaX > 0) {
                 onSwipeRight(deltaX);
             } else {

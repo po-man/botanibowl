@@ -182,7 +182,7 @@ function swipeRight(startX) {
 
 function dragPreview(deltaX) {
     const hud = document.querySelector('.hud');
-    if (deltaX > 50) {
+    if (deltaX > 20) {
         const card = gameState.currentCard;
         const ghost = {
             carbs_g: card.carbs_g,
