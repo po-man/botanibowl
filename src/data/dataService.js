@@ -14,7 +14,7 @@ let maxIngredientValues = {
 };
 
 // Tunable factor for ingredient weighting. 0 = uniform, >1 = favors high-macro ingredients.
-const MACRO_WEIGHTING_FACTOR = 0.7;
+const MACRO_WEIGHTING_FACTOR = 0.6;
 
 export function validateIngredient(ingredient) {
     const required = ['id', 'name_en', 'name_zh', 'emoji', 'serving_size_g', 'calories', 'carbs_g', 'fats_g', 'protein_g', 'water_l', 'land_m2'];
