@@ -255,6 +255,10 @@ export function updateResultsScreen(container, gameState, onNextCustomer) {
             </div>
             ` : ''}
             <button id="next-btn">${t.next_customer}</button>
+
+            <div class="results-attribution" style="margin-top: 1rem; font-size: 0.65rem; color: #aaa; text-align: center;">
+                ${t.data_attribution}
+            </div>
         </div>
     `;
 

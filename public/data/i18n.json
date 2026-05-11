@@ -29,7 +29,8 @@
       "feedback_high_chicken": "While chicken seems like a lean choice, its production has hidden ethical and environmental costs.",
       "rich_in_antioxidants": "Rich in Antioxidants",
       "rich_in_vitamin_c": "Rich in Vitamin C",
-      "high_in_sat_fat": "High in Saturated Fat"
+      "high_in_sat_fat": "High in Saturated Fat",
+      "data_attribution": "Powered by real-world data from Centre for Food Safety & Our World in Data"
     },
     "zh": {
       "serve_customer": "招呼客人",
@@ -60,7 +61,8 @@
       "feedback_high_chicken": "雖然雞肉睇落係一個健康嘅選擇，但佢嘅生產過程背後隱藏住道德同環境代價。",
       "rich_in_antioxidants": "含豐富抗氧化物",
       "rich_in_vitamin_c": "含豐富維他命C",
-      "high_in_sat_fat": "高飽和脂肪"
+      "high_in_sat_fat": "高飽和脂肪",
+      "data_attribution": "營養及環境數據分別源自食物安全中心與 Our World in Data"
     }
   }
 ]
