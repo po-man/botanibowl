@@ -675,9 +675,6 @@ body {
     transform: scale(1);
 }
 
-.visual-plate-container {
-    margin: 1rem 0;
-}
 
 .plate-svg {
     width: 200px;
@@ -727,7 +724,7 @@ body {
 }
 
 .documentary-recommendation {
-    margin: 1rem 0;
+    margin-bottom: 1rem;
     border-radius: 10px;
     background-color: #eeeeee;
     padding: 1rem;
