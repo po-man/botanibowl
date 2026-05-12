@@ -116,8 +116,10 @@ export class GameState {
         let healthFlag = false;
         let ecoFlag = false;
 
-        // Custom Chicken Check
+        // Custom Ingredient Checks
         const chickenCount = this.bowl.filter(ing => ing.id === 'chicken').length;
+        const hasEggs = this.bowl.some(ing => ing.id === 'egg' || ing.id === 'eggs'); // Added egg detection
+
         if (chickenCount > 1) {
             feedback.push(t.feedback_high_chicken);
         }
@@ -152,7 +154,14 @@ export class GameState {
         const proteinInRange = Math.abs(this.current.protein_g - this.targets.protein_g) <= this.targets.protein_g * 0.10;
 
         if (carbsInRange && fatsInRange && proteinInRange && !healthFlag && !ecoFlag) {
-            return t.feedback_perfect;
+            let perfectFeedback = [t.feedback_perfect];
+
+            // Add extra recommendation if the bowl contains eggs
+            if (hasEggs) {
+                perfectFeedback.push(t.feeadback_egg_recommendation);
+            }
+
+            return perfectFeedback.join(' ');
         }
 
         // 4. The Guaranteed Fallback (Fixes the empty string bug)
