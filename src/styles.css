@@ -806,15 +806,24 @@ body {
 .hero-boy {
     height: 100%;
     position: relative;
-    z-index: 2; /* Sits behind the veggies */
+    z-index: 2;
+    opacity: 0;
+    transition: opacity 0.5s ease-in-out;
 }
 
 .hero-veg {
     position: absolute;
-    z-index: 3; /* Sits in front of the boy */
+    z-index: 3;
     filter: drop-shadow(0 8px 12px rgba(0,0,0,0.15));
     --rot: 0deg;
     animation: float-veg 3s ease-in-out infinite alternate;
+    opacity: 0;
+    transition: opacity 0.5s ease-in-out;
+}
+
+.hero-boy.loaded,
+.hero-veg.loaded {
+    opacity: 1;
 }
 
 /* Specific sizing, positioning, and animation timings for each item */
