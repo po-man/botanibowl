@@ -1,3 +1,8 @@
+import rawIngredients from './ingredients.json';
+import rawProfiles from './profiles.json';
+import rawDocumentaries from './documentaries.json';
+import rawI18n from './i18n.json';
+
 // dataService.js - Handles loading and providing game data
 let ingredients = [];
 let profiles = [];
@@ -33,22 +38,12 @@ export function validateDocumentary(doc) {
 
 export async function loadData() {
     try {
-        const ingredientsResponse = await fetch('./data/ingredients.json');
-        const rawIngredients = await ingredientsResponse.json();
         ingredients = rawIngredients.filter(validateIngredient);
-        calculateMaxIngredientValues(); // Calculate max values after loading ingredients
+        calculateMaxIngredientValues();
 
-        const profilesResponse = await fetch('./data/profiles.json');
-        const rawProfiles = await profilesResponse.json();
         profiles = rawProfiles.filter(validateProfile);
-
-        const documentariesResponse = await fetch('./data/documentaries.json');
-        const rawDocumentaries = await documentariesResponse.json();
         documentaries = rawDocumentaries.filter(validateDocumentary);
-
-        const i18nResponse = await fetch('./data/i18n.json');
-        const i18nData = await i18nResponse.json();
-        i18n = i18nData[0]; // The data is nested in an array
+        i18n = rawI18n[0];
     } catch (error) {
         console.error('Error loading data:', error);
     }
