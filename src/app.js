@@ -16,6 +16,14 @@ let swipeLocked = false;
 export async function initApp() {
     await loadData();
     gameState = new GameState();
+
+    const urlParams = new URLSearchParams(window.location.search);
+    const langParam = urlParams.get('lang');
+
+    if (langParam === 'en' || langParam === 'zh') {
+        gameState.setLanguage(langParam);
+    }
+
     showScreen('MENU');
     preloadDocumentaryImages();
 }
