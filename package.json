@@ -15,7 +15,8 @@
   "description": "BotaniBowl 揀飲擇植 - A sustainable nutrition swiping game",
   "devDependencies": {
     "jest": "^30.3.0",
-    "vite": "^8.0.10"
+    "vite": "^8.0.10",
+    "vite-plugin-singlefile": "^2.3.3"
   },
   "dependencies": {
     "hammerjs": "^2.0.8"

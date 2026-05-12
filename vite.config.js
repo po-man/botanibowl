@@ -1,7 +1,7 @@
-// vite.config.js
 import { defineConfig } from 'vite'
+import { viteSingleFile } from 'vite-plugin-singlefile'
 
 export default defineConfig({
-  // Replace 'botanibowl' with your exact GitHub repository name
-  base: '/'
+  base: './',
+  plugins: [viteSingleFile()],
 })
