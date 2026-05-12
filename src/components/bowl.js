@@ -97,15 +97,16 @@ export function updateBowl(container, gameState, onServeMeal, onRemoveIngredient
     };
 
     if (ingredientsContainer) {
-        ingredientsContainer.addEventListener('touchstart', (event) => {
+        ingredientsContainer.addEventListener('pointerdown', (event) => {
+            // Ignore right-clicks from a mouse
+            if (event.pointerType === 'mouse' && event.button !== 0) return;
+
             if (!gameState.bowlTutorialCompleted) {
                 gameState.bowlTutorialCompleted = true;
                 const hintEl = container.querySelector('.bowl-hint');
                 if (hintEl) hintEl.remove();
             }
 
-            const touch = event.touches[0];
-            if (!touch) return;
             const target = event.target.closest('.ingredient');
             if (!target || !actionsContainer) return;
 
@@ -117,12 +118,16 @@ export function updateBowl(container, gameState, onServeMeal, onRemoveIngredient
             }
 
             draggedElement = target;
+            // Capture the pointer so the element tracks the mouse even if it leaves the container
+            draggedElement.setPointerCapture(event.pointerId);
+
             const rect = draggedElement.getBoundingClientRect();
-            dragOffsetX = touch.clientX - rect.left;
-            dragOffsetY = touch.clientY - rect.top;
+            dragOffsetX = event.clientX - rect.left;
+            dragOffsetY = event.clientY - rect.top;
+
             draggedElement.classList.add('dragging');
-            draggedElement.style.left = `${touch.clientX - dragOffsetX}px`;
-            draggedElement.style.top = `${touch.clientY - dragOffsetY}px`;
+            draggedElement.style.left = `${event.clientX - dragOffsetX}px`;
+            draggedElement.style.top = `${event.clientY - dragOffsetY}px`;
             draggedElement.style.width = `${rect.width}px`;
             draggedElement.style.height = `${rect.height}px`;
 
@@ -132,17 +137,15 @@ export function updateBowl(container, gameState, onServeMeal, onRemoveIngredient
                     <button id="double-btn" class="bowl-action-btn double" ${isFull ? 'disabled' : ''}>${t.double}</button>
                 `;
             }
-        }, { passive: false });
+        });
 
-        ingredientsContainer.addEventListener('touchmove', (event) => {
+        ingredientsContainer.addEventListener('pointermove', (event) => {
             if (activeIndex === null || !draggedElement) return;
-            const touch = event.touches[0];
-            if (!touch) return;
             event.preventDefault();
-            draggedElement.style.left = `${touch.clientX - dragOffsetX}px`;
-            draggedElement.style.top = `${touch.clientY - dragOffsetY}px`;
-            updateHoverState(touch.clientX, touch.clientY);
-        }, { passive: false });
+            draggedElement.style.left = `${event.clientX - dragOffsetX}px`;
+            draggedElement.style.top = `${event.clientY - dragOffsetY}px`;
+            updateHoverState(event.clientX, event.clientY);
+        });
 
         const endDrag = (event) => {
             if (activeIndex === null || !draggedElement) {
@@ -150,28 +153,27 @@ export function updateBowl(container, gameState, onServeMeal, onRemoveIngredient
                 return;
             }
 
-            const touch = event.changedTouches ? event.changedTouches[0] : null;
+            // Release pointer capture
+            try { draggedElement.releasePointerCapture(event.pointerId); } catch(e) {}
+
             let removed = false;
             let added = false;
 
-            if (touch) {
-                const { overDrop, overDouble } = updateHoverState(touch.clientX, touch.clientY);
-                if (overDrop) {
-                    removed = onRemoveIngredient(activeIndex);
-                } else if (overDouble && !isFull && onAddIngredient) {
-                    const ingredientToAdd = gameState.bowl[activeIndex];
-                    added = onAddIngredient(ingredientToAdd);
-                }
+            const { overDrop, overDouble } = updateHoverState(event.clientX, event.clientY);
+            if (overDrop) {
+                removed = onRemoveIngredient(activeIndex);
+            } else if (overDouble && !isFull && onAddIngredient) {
+                const ingredientToAdd = gameState.bowl[activeIndex];
+                added = onAddIngredient(ingredientToAdd);
             }
 
             cleanupDrag();
-            // Return if an action was taken to prevent other logic from firing
             if (removed || added) {
                 return;
             }
         };
 
-        ingredientsContainer.addEventListener('touchend', endDrag);
-        ingredientsContainer.addEventListener('touchcancel', endDrag);
+        ingredientsContainer.addEventListener('pointerup', endDrag);
+        ingredientsContainer.addEventListener('pointercancel', endDrag);
     }
 }

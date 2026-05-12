@@ -518,6 +518,8 @@ body {
     border-radius: 0.75rem;
     background: rgba(76, 175, 80, 0.08);
     transition: transform 0.2s ease, box-shadow 0.2s ease;
+    touch-action: none;
+    user-select: none;
 }
 
 .ingredient.dragging {
